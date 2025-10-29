@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 29-10-2025 a las 11:29:59
+-- Tiempo de generación: 29-10-2025 a las 21:02:06
 -- Versión del servidor: 8.0.43
 -- Versión de PHP: 8.2.27
 
@@ -28,26 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `board` (
-  `idBoard` int NOT NULL,
-  `createdAt` datetime NOT NULL,
+  `id_board` int NOT NULL,
+  `created` datetime NOT NULL,
   `capacity` int NOT NULL,
-  `isReserved` tinyint(1) NOT NULL,
   `location` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `cashOrder`
---
-
-CREATE TABLE `cashOrder` (
-  `idCashOrder` int NOT NULL,
-  `cashOrderDate` datetime NOT NULL,
-  `totalPrice` decimal(10,2) NOT NULL,
-  `isCompleted` tinyint(1) NOT NULL,
-  `comment` varchar(100) NOT NULL,
-  `idClient` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -57,22 +41,37 @@ CREATE TABLE `cashOrder` (
 --
 
 CREATE TABLE `client` (
-  `idClient` int NOT NULL,
-  `dateCreatedAccount` date NOT NULL,
+  `id_client` int NOT NULL,
+  `date_created_account` date NOT NULL,
   `age` int NOT NULL,
-  `isVip` tinyint(1) NOT NULL,
-  `name` varchar(20) NOT NULL
+  `is_vip` tinyint(1) NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `orderDish`
+-- Estructura de tabla para la tabla `client_order`
 --
 
-CREATE TABLE `orderDish` (
-  `idCashOrder` int NOT NULL,
-  `idPlate` int NOT NULL,
+CREATE TABLE `client_order` (
+  `id_client_order` int NOT NULL,
+  `client_order_date` datetime NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `is_completed` tinyint(1) NOT NULL,
+  `comment` varchar(100) NOT NULL,
+  `id_client` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `order_dish`
+--
+
+CREATE TABLE `order_dish` (
+  `id_cash_order` int NOT NULL,
+  `id_plate` int NOT NULL,
   `quantity` int NOT NULL,
   `notes` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -84,10 +83,10 @@ CREATE TABLE `orderDish` (
 --
 
 CREATE TABLE `plate` (
-  `idPlate` int NOT NULL,
-  `addedDate` datetime NOT NULL,
+  `id_plate` int NOT NULL,
+  `added_date` datetime NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `isAvailable` tinyint(1) NOT NULL,
+  `is_available` tinyint(1) NOT NULL,
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -98,13 +97,13 @@ CREATE TABLE `plate` (
 --
 
 CREATE TABLE `reservation` (
-  `idReservation` int NOT NULL,
-  `reservationDate` datetime NOT NULL,
-  `numberOfGuests` int NOT NULL,
-  `isNightReservation` tinyint(1) NOT NULL,
+  `id_reservation` int NOT NULL,
+  `reservation_date` datetime NOT NULL,
+  `number_of_guests` int NOT NULL,
+  `is_night_reservation` tinyint(1) NOT NULL,
   `comment` varchar(50) NOT NULL,
-  `idBoard` int NOT NULL,
-  `idClient` int NOT NULL
+  `id_board` int NOT NULL,
+  `id_client` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -115,41 +114,41 @@ CREATE TABLE `reservation` (
 -- Indices de la tabla `board`
 --
 ALTER TABLE `board`
-  ADD PRIMARY KEY (`idBoard`);
-
---
--- Indices de la tabla `cashOrder`
---
-ALTER TABLE `cashOrder`
-  ADD PRIMARY KEY (`idCashOrder`),
-  ADD KEY `FK_CashOrder_Client` (`idClient`);
+  ADD PRIMARY KEY (`id_board`);
 
 --
 -- Indices de la tabla `client`
 --
 ALTER TABLE `client`
-  ADD PRIMARY KEY (`idClient`);
+  ADD PRIMARY KEY (`id_client`);
 
 --
--- Indices de la tabla `orderDish`
+-- Indices de la tabla `client_order`
 --
-ALTER TABLE `orderDish`
-  ADD PRIMARY KEY (`idCashOrder`,`idPlate`),
-  ADD KEY `FK_OrderDish_Plate` (`idPlate`);
+ALTER TABLE `client_order`
+  ADD PRIMARY KEY (`id_client_order`),
+  ADD KEY `FK_CashOrder_Client` (`id_client`) USING BTREE;
+
+--
+-- Indices de la tabla `order_dish`
+--
+ALTER TABLE `order_dish`
+  ADD PRIMARY KEY (`id_cash_order`,`id_plate`),
+  ADD KEY `FK_OrderDish_Plate` (`id_plate`) USING BTREE;
 
 --
 -- Indices de la tabla `plate`
 --
 ALTER TABLE `plate`
-  ADD PRIMARY KEY (`idPlate`);
+  ADD PRIMARY KEY (`id_plate`);
 
 --
 -- Indices de la tabla `reservation`
 --
 ALTER TABLE `reservation`
-  ADD PRIMARY KEY (`idReservation`),
-  ADD KEY `FK_Reser_Board` (`idBoard`),
-  ADD KEY `FK_Reser_Client` (`idClient`);
+  ADD PRIMARY KEY (`id_reservation`),
+  ADD KEY `FK_Reser_Board` (`id_board`) USING BTREE,
+  ADD KEY `FK_Reser_Client` (`id_client`) USING BTREE;
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -159,55 +158,55 @@ ALTER TABLE `reservation`
 -- AUTO_INCREMENT de la tabla `board`
 --
 ALTER TABLE `board`
-  MODIFY `idBoard` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `cashOrder`
---
-ALTER TABLE `cashOrder`
-  MODIFY `idCashOrder` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_board` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `client`
 --
 ALTER TABLE `client`
-  MODIFY `idClient` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_client` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `client_order`
+--
+ALTER TABLE `client_order`
+  MODIFY `id_client_order` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `plate`
 --
 ALTER TABLE `plate`
-  MODIFY `idPlate` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_plate` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `idReservation` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_reservation` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `cashOrder`
+-- Filtros para la tabla `client_order`
 --
-ALTER TABLE `cashOrder`
-  ADD CONSTRAINT `FK_CashOrder_Client` FOREIGN KEY (`idClient`) REFERENCES `client` (`idClient`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `client_order`
+  ADD CONSTRAINT `FK_CashOrder_Client` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `orderDish`
+-- Filtros para la tabla `order_dish`
 --
-ALTER TABLE `orderDish`
-  ADD CONSTRAINT `FK_OrderDish_CashOrder` FOREIGN KEY (`idCashOrder`) REFERENCES `cashOrder` (`idCashOrder`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_OrderDish_Plate` FOREIGN KEY (`idPlate`) REFERENCES `plate` (`idPlate`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `order_dish`
+  ADD CONSTRAINT `FK_OrderDish_CashOrder` FOREIGN KEY (`id_cash_order`) REFERENCES `client_order` (`id_client_order`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_OrderDish_Plate` FOREIGN KEY (`id_plate`) REFERENCES `plate` (`id_plate`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `reservation`
 --
 ALTER TABLE `reservation`
-  ADD CONSTRAINT `FK_Reser_Board` FOREIGN KEY (`idBoard`) REFERENCES `board` (`idBoard`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_Reser_Client` FOREIGN KEY (`idClient`) REFERENCES `client` (`idClient`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_Reser_Board` FOREIGN KEY (`id_board`) REFERENCES `board` (`id_board`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_Reser_Client` FOREIGN KEY (`id_client`) REFERENCES `client` (`id_client`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
