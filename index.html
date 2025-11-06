@@ -1,19 +1,377 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <!-- Enlaces a bootstrap-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous">
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+        <script defer
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+        <style type="text/css">
+		/* Colores de nuestra paleta */
+		:root {
+			--bs-primary: #881536;
+			--bs-secondary: #DA835E;
+			--bs-primary-rgb: 136, 21, 54;
+		}
 
-<body>
+		.bg-primary {
+			background-color: var(--bs-primary) !important;
+		}
+
+		.bg-secondary {
+			background-color: var(--bs-secondary) !important;
+		}
+
+		/* Fuentes de letras */
+		body {
+			font-family: "Dosis", sans-serif;
+			font-optical-sizing: auto;
+			font-weight: 500;
+			font-style: normal;
+		}
+
+		footer {
+			font-family: "PT Serif", serif;
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			font-family: "PT Serif", serif;
+			font-weight: 700;
+			font-style: normal;
+		}
+
+		/* Fondo de la página */
+		.bg-cont-image {
+			background-image: url('../assets/img/img_decoracion_pagina/fondo_andaluz.jpg');
+			/* ajusta la ruta */
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+		}
+
+		/* Valores para el scrollspy de la pagina del menu */
+		/* Es para que el scrollspy se quede pegado en la parte superior */
+		.sticky-scrollspy {
+			top: 0px;
+			align-self: flex-start;
+		}
+
+		/* Estilo para el elemento activo del Scrollspy*/
+		.nav-link.active {
+			background-color: var(--bs-primary) !important;
+		}
+
+		/* Estilo para el efecto hover (Fondo: #881536 con opacidad) */
+		.nav-link:hover {
+			background-color: rgba(var(--bs-primary-rgb), 0.7) !important;
+		}
+	</style>
+        <title>Amigos Flamenquines</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand text-light" href="index.html">Amigos
+                    Flamenquines</a>
+                <button class="navbar-toggler bg-light" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"
+                    id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- Reservas -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light"
+                                href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Reservas
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Alta de
+                                        componentes</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Buscar un
+                                        componente</a></li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        componentes</a></li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        componentes por
+                                        tipo</a></li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        componentes
+                                        por precio</a></li>
+                            </ul>
+                        </li>
+                        <!-- Clientes -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light"
+                                href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Clientes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- Añadir cliente -->
+                                <li><a id="mnuAltaCliente" name="mnuAltaCliente"
+                                        class="dropdown-item" href="#">Alta
+                                        cliente</a></li>
+                                <!-- Buscar cliente y poder editarlo -->
+                                <li><a id="mnuBuscarCliente"
+                                        class="dropdown-item" href="#">Buscar
+                                        cliente</a></li>
+
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <!-- Listados -->
+                                <li><a id="mnuMostrarClientes"
+                                        class="dropdown-item" href="#">Mostrar
+                                        clientes almacenados</a></li>
+                                <li><a id="mnuListadoParametrizadoClientes"
+                                        class="dropdown-item" href="#">Listado
+                                        de
+                                        clientes parametrizado</a></li>
+                            </ul>
+                        </li>
+                        <!-- Pedidos -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light"
+                                href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Pedidos
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Alta de
+                                        pedido</a></li>
+                                <li><a class="dropdown-item" href="#">Buscar un
+                                        pedido</a></li>
+                                <li><a class="dropdown-item" href="#">Modificar
+                                        un pedido</a></li>
+                                <li><a class="dropdown-item" href="#">Borrar un
+                                        pedido</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        pedidos</a></li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        pedidos por</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
 
+        <!-- Formularios de la página-->
+        <div class="container" id="formularios">
+            <div class="row">
 
-    <script type="text/javascript" src="js/ajax.js"></script>
-    <script type="text/javascript" src="js/objetos.js"></script>
-    <script type="text/javascript" src="js/codigo.js"></script>
-</body>
+            <!-- Formularios Reservas-->
 
-</html>
+            <!-- Formularios Clientes-->
+
+                <!--Alta cliente-->
+                <form class="form-horizontal d-none" name="frmAltaCliente"
+                    id="frmAltaCliente">
+                    <fieldset class="row ">
+                        <legend>Alta de cliente</legend>
+                        <!-- Nombre del cliente -->
+                        <div class="form-group col-12">
+                            <label class="col-xs-4 control-label"
+                                for="nombreCliente">Nombre: </label>
+                            <div class="col-xs-4">
+                                <input id="nombreCliente" name="nombreCliente"
+                                    placeholder="Escribe aquí el nombre del cliente..."
+                                    class="form-control input-md" type="text">
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-between my-4 ">
+                            <!-- Edad del cliente -->
+                            <div class="form-group col-3">
+                                <label class="col-xs-4 control-label"
+                                    for="edadCliente">Edad: </label>
+                                <div class="col-xs-4">
+                                    <input id="edadCliente" name="edadCliente"
+                                        value="18" class="form-control input-md"
+                                        type="number" min="16" max="120">
+                                </div>
+                            </div>
+
+                            <!-- Radio VIP -->
+                            <div class="form-group col-3">
+                                <label for>¿Cliente VIP?</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                        name="radioVIP" id="radioVIPSi "
+                                        value="1">
+                                    <label class="form-check-label"
+                                        for="radioVIPSi">
+                                        Si
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                        name="radioVIP" id="radioVIPNo"
+                                        value="0"
+                                        checked>
+                                    <label class="form-check-label"
+                                        for="radioVIPNo">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarAltaCliente"></label>
+                            <div class="col-xs-4">
+                                <input type="submit" id="btnAceptarAltaCliente"
+                                    name="btnAceptarAltaCliente"
+                                    class="btn bg-secondary" value="Aceptar" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- Buscar Cliente-->
+                <form class="form-horizontal d-none" name="frmBuscarCliente"
+                    id="frmBuscarCliente">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <legend>Buscar un cliente</legend>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="idClienteBuscar">Id del cliente: </label>
+                            <div class="col-xs-4">
+                                <input id="idClienteBuscar"
+                                    name="idClienteBuscar"
+                                    class="form-control input-md" type="number">
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarBuscarCliente"></label>
+                            <div class="col-xs-4">
+                                <input type="submit"
+                                    id="btnAceptarBuscarCliente"
+                                    name="btnAceptarBuscarCliente"
+                                    class="btn bg-secondary" value="Aceptar" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- Listado Parametrizado Clientes-->
+                <form class="form-horizontal d-none row"
+                    name="frmListadoParametrizadoClientes"
+                    id="frmListadoParametrizadoClientes" method="get">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <legend>Listado Parametrizado de Clientes</legend>
+
+                        <div class="form-group col-12 mb-2">
+                            <label class="col-xs-4 control-label"
+                                for="nombreCliente">Nombre del cliente: </label>
+                            <div class="col-xs-4">
+                                <input id="nombreCliente" name="nombreCliente"
+                                    class="form-control input-md" type="text"
+                                    placeholder="Escribe aquí su nombre o parte de él...">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-12 mb-2">
+                            <label class="col-xs-4 control-label"
+                                for="nombreCliente">Fecha añadido: </label>
+                            <div class="col-xs-4">
+                                <input id="fechaAnyadido" name="fechaAnyadido"
+                                    class="form-control input-md" type="date">
+                            </div>
+                        </div>
+
+                        <div class="row col-12 mb-2">
+                            <div class="form-group col-6">
+                                <label class="col-xs-4 control-label"
+                                    for="edadCliente">Edad del cliente: </label>
+                                <div class="col-xs-4">
+                                    <input id="edadCliente" name="edadCliente"
+                                        class="form-control input-md"
+                                        type="number" min="16"
+                                        max="120">
+                                </div>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for>¿Cliente VIP?</label>
+                                <div class="col-xs-4">
+                                    <select name="lstEsVip" id="lstEsVip"
+                                        class="form-select"
+                                        aria-label="Default select example">
+                                        <option value="-1" selected>Elige una
+                                            opcion</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarBuscarCliente"></label>
+                            <div class="col-xs-4">
+                                <input type="submit"
+                                    id="btnAceptarListadoParametrizado"
+                                    name="btnAceptarListadoParametrizado"
+                                    class="btn bg-secondary" value="Aceptar" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+            
+            <!-- Formularios Pedidos-->
+            </div>
+
+            
+
+            
+
+            <!-- Scripts JS -->
+            <script type="text/javascript" src="js/ajax.js"></script>
+            <script type="text/javascript" src="js/objetos.js"></script>
+            <script type="text/javascript" src="js/codigo.js"></script>
+
+        </body>
+
+    </html>
