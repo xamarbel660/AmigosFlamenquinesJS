@@ -1,3 +1,9 @@
+
+"use strict";
+
+// MAIN PROGRAM
+var oEmpresa = new Empresa();
+
 //Mostrar formularios
 
 //Registrar el click en los elementos del menú
@@ -5,7 +11,7 @@
 document.querySelector("#mnuAltaCliente").addEventListener("click", mostrarFormularios);
 document.querySelector("#mnuBuscarCliente").addEventListener("click", mostrarFormularios);
 document.querySelector("#mnuListadoParametrizadoClientes").addEventListener("click", mostrarFormularios);
-
+document.querySelector("#mnuMostrarClientes").addEventListener("click", mostrarListadoClientes);
 
 //Mostrar formularios tras la interacción con el elemento del menú
 
@@ -59,3 +65,15 @@ function ocultarFormularios(){
     frmListadoParametrizadoClientes.classList.add("d-none");
     //Ocultar formularios pedidos
 }
+
+
+//Funciones reservas
+
+
+//Funciones clientes
+async function mostrarListadoClientes(){
+    let tabla = await oEmpresa.listadoClientes();
+    document.querySelector("#listados").innerHTML = tabla;
+}
+
+//Funciones pedidos
