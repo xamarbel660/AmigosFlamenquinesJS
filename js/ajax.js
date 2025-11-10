@@ -1,6 +1,6 @@
 "use strict";
 
-const rutaBackend = "http://localhost/amigosFlamenquinesJS/php";
+const rutaBackend = "http://localhost/amigosFlamenquinesJS/php/";
 
 /**
  * Realiza peticiones AJAX de tipo GET
