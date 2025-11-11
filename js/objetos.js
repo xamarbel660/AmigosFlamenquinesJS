@@ -108,7 +108,7 @@ class Empresa {
              listado = respuesta.mensaje;
          } else {
              listado = "<table class='table table-striped'>";
-             listado += "<thead><tr><th>ID</th><th>NOMBRE</th><th>EDAD</th>><th>FECHA AÑADIDO</th><th>¿ES VIP?</th</tr></thead>";
+             listado += "<thead><tr><th>ID</th><th>NOMBRE</th><th>EDAD</th><th>ES VIP</th><th>FECHA AÑADIDO</th></tr></thead>";
              listado += "<tbody>";
 
             for (let cliente of respuesta.datos) {
@@ -123,8 +123,8 @@ class Empresa {
                  listado += "<tr><td>" + cliente.id_client.trim() + "</td>";
                  listado += "<td>" + cliente.name.trim() + "</td>";
                  listado += "<td>" + cliente.age.trim() + "</td>";
-                 listado += "<td>" + fecha_anyadido + "</td>";
-                 listado += "<td>" +es_vip+ "</td></tr>";
+                 listado += "<td>" +es_vip+ "</td>";
+                 listado += "<td>" + fecha_anyadido + "</td></tr>";
                  
              }
              listado += "</tbody></table>";
