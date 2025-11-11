@@ -11,7 +11,9 @@ var oEmpresa = new Empresa();
 document.querySelector("#mnuAltaCliente").addEventListener("click", mostrarFormularios);
 document.querySelector("#mnuBuscarCliente").addEventListener("click", mostrarFormularios);
 document.querySelector("#mnuListadoParametrizadoClientes").addEventListener("click", mostrarFormularios);
-document.querySelector("#mnuMostrarClientes").addEventListener("click", mostrarListadoClientes);
+document.querySelector("#mnuMostrarClientes").addEventListener("click", mostrarFormularios);
+
+document.querySelector("#btnAceptarAltaCliente").addEventListener("click", procesarAltaCliente);
 
 //Mostrar formularios tras la interacción con el elemento del menú
 
@@ -41,6 +43,11 @@ function mostrarFormularios(oEvento) {
             frmListadoParametrizadoClientes.classList.remove("d-none");
             break;
 
+        case "mnuMostrarClientes":
+            mostrarListadoClientes();
+            break;
+
+            
 
         //Casos Pedidos
         case "value":
@@ -64,6 +71,10 @@ function ocultarFormularios(){
     frmBuscarCliente.classList.add("d-none");
     frmListadoParametrizadoClientes.classList.add("d-none");
     //Ocultar formularios pedidos
+
+
+    //Ocultar listados
+    document.querySelector("#listados").innerHTML = "";
 }
 
 
@@ -74,6 +85,23 @@ function ocultarFormularios(){
 async function mostrarListadoClientes(){
     let tabla = await oEmpresa.listadoClientes();
     document.querySelector("#listados").innerHTML = tabla;
+}
+
+async function procesarAltaCliente() {
+
+    let hoy = new Date();
+    let año = hoy.getFullYear();
+    let mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Meses van de 0 a 11
+    let dia = String(hoy.getDate()).padStart(2, '0');
+
+    let fechaAnyadido = `${año}-${mes}-${dia}`;
+
+    let edad = parseInt(frmAltaCliente.edadCliente.value.trim());
+    let esVip = parseInt(frmAltaCliente.radioVIP.value.trim());
+    let nombre = frmAltaCliente.nombreCliente.value.trim();
+
+    let cliente = new Cliente(null,fechaAnyadido,edad,esVip,);
+
 }
 
 //Funciones pedidos
