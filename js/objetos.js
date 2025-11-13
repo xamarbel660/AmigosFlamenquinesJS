@@ -100,6 +100,16 @@ class Empresa {
 
 
     //Clientes
+    async altaCliente(cliente){
+        let datos = new FormData() ;
+        datos.append("cliente",JSON.stringify(cliente.toJSON()));
+
+        let respuesta = await peticionPOST("proceso_alta_cliente.php", datos);
+
+        return respuesta;
+
+    }
+
     async listadoClientes(){
         let listado="";
         let respuesta = await peticionGET("get_clientes.php", new FormData())
