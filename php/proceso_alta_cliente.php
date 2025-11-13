@@ -5,14 +5,15 @@ $conexion = obtenerConexion();
 // Recuperar parámetros
 $cliente = json_decode($_POST['cliente'], true);
 
-
-
 // No validamos, suponemos que la entrada de datos es correcta
 
 // Definir insert
-// El campo is_completed se pone a 0 por defecto, porque cuando se crea el pedido, no está completado
-$sql = "INSERT INTO client (date_created_account, age, is_vip, name)
-        VALUES ('".$cliente['date_created_account']."', ".$cliente['age'].", ".$cliente['is_vip'].", '".$cliente['name']."')";
+// $sql = "INSERT INTO client (date_created_account, age, is_vip, name)
+//         VALUES ('".$cliente['date_created_account']."', ".$cliente['age'].", ".$cliente['is_vip'].", '".$cliente['name']."')";
+
+//por ahora pongo la categoria en el id 1, pero hay que cambiar el formulario para que elija categoria
+$sql = "INSERT INTO client
+        VALUES (null,'".$cliente['date_created_account']."', ".$cliente['age'].", ".$cliente['is_vip'].", '".$cliente['name']."',1)";
 
 // Ejecutar consulta
 $resultado = mysqli_query($conexion, $sql);
@@ -21,20 +22,10 @@ $resultado = mysqli_query($conexion, $sql);
 if (mysqli_errno($conexion) != 0) {
     $numerror = mysqli_errno($conexion);
     $descrerror = mysqli_error($conexion);
-    $mensaje =  "<h2 class='text-center mt-5'>Se ha producido un error numero $numerror que corresponde a: $descrerror </h2>";
+    // Prototipo responder($datos,$error,$mensaje,$conexion)
+    responder(null, true, "Se ha producido un error número $numerror que corresponde a: $descrerror <br>", $conexion);
 } else {
-    $mensaje =  "<h2 class='text-center mt-5'>Cliente añadido</h2>"; 
+    // Prototipo responder($datos,$error,$mensaje,$conexion)
+    responder(null, false, "Se ha dado de alta el componente", $conexion); 
 }
-// Redireccionar tras 5 segundos al index.
-// Siempre debe ir antes de DOCTYPE
-header( "refresh:5;url=index.php" );
-
-// Aquí empieza la página
-include_once("cabecera.html");
-
-// Mostrar mensaje calculado antes
-echo $mensaje;
-
 ?>
-</body>
-</html>
