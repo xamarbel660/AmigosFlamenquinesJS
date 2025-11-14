@@ -89,7 +89,7 @@
                             Pedidos
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Alta de
+                            <li><a class="dropdown-item" href="#" id="mnuAltaPedido">Alta de
                                     pedido</a></li>
                             <li><a class="dropdown-item" href="#">Buscar un
                                     pedido</a></li>
@@ -308,7 +308,37 @@
             <!-- Fin Formularios Clientes-->
 
             <!-- Formularios Pedidos-->
-
+            <!-- Alta Pedido -->
+            <form class="form-horizontal d-none" name="frmAltaPedido" id="frmAltaPedido">
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend>Alta de tipo de un pedido</legend>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label" for="txtTipo">Tipo</label>
+                        <div class="col-xs-4">
+                            <input id="txtTipo" name="txtTipo" placeholder="Nombre del tipo"
+                                class="form-control input-md" type="text">
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label" for="txtDescripcion">Descripcion</label>
+                        <div class="col-xs-4">
+                            <input id="txtDescripcion" name="txtDescripcion" placeholder="Descripción del tipo"
+                                class="form-control input-md" type="text">
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label" for="btnAceptarAltaTipo"></label>
+                        <div class="col-xs-4">
+                            <input type="button" id="btnAceptarAltaTipo" name="btnAceptarAltaTipo"
+                                class="btn btn-primary" value="Aceptar" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
             <!-- Fin Formularios Pedidos-->
         </div>
 
@@ -325,7 +355,7 @@
     <script type="text/javascript" src="js/ajax.js"></script>
     <script type="text/javascript" src="js/objetos.js"></script>
     <script type="text/javascript" src="js/codigo.js"></script>
-    
+
 </body>
 
 </html>

@@ -9,6 +9,9 @@ registrarEventos();
 // Registro de eventos
 function registrarEventos() {
     // Opciones de menú (navbar)
+    // Reservas
+
+    // Clientes
     document
         .querySelector("#mnuAltaCliente")
         .addEventListener("click", mostrarFormularios);
@@ -22,10 +25,17 @@ function registrarEventos() {
         .querySelector("#mnuMostrarClientes")
         .addEventListener("click", mostrarFormularios);
 
+    // Pedidos
+
     // Botones
+    // Botones formularios Reservas
+
+    // Botones formularios Clientes
     document
         .querySelector("#btnAceptarAltaCliente")
         .addEventListener("click", procesarAltaCliente);
+    // Botones formularios Pedidos
+    
 }
 
 
