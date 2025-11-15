@@ -3,7 +3,7 @@ require_once('config.php');
 $conexion = obtenerConexion();
 
 // SQL
-$sql = "SELECT * FROM client INNER JOIN category ON client.id_category = category.id_category;";
+$sql = "SELECT * FROM category;";
 
 $resultado = mysqli_query($conexion, $sql);
 
