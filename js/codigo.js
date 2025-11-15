@@ -35,7 +35,15 @@ function registrarEventos() {
         .addEventListener("click", mostrarFormularios);
 
     // Pedidos
-
+    document
+        .querySelector("#mnuAltaPedido")
+        .addEventListener("click", mostrarFormularios);
+    document
+        .querySelector("#mnuListadoPedidos")
+        .addEventListener("click", procesarListadoPedidos);
+    document
+        .querySelector("#mnuListadoPedidosParametrizado")
+        .addEventListener("click", mostrarFormularios);
     // Botones
     // Botones formularios Reservas
     document.querySelector("#frmBuscarReserva").addEventListener("submit", e => {
@@ -65,7 +73,15 @@ function registrarEventos() {
         .querySelector("#btnAceptarAltaCliente")
         .addEventListener("click", procesarAltaCliente);
     // Botones formularios Pedidos
-    
+    document
+        .querySelector("#btnAceptarAltaPedido")
+        .addEventListener("click", procesarAltaPedido);
+    document
+        .querySelector("#btnAñadirPlatoAltaPedido")
+        .addEventListener("click", procesarAñadirPlatoPedido);
+    document
+        .querySelector("#btnAceptarListadoPedidosParametrizado")
+        .addEventListener("click", procesarListadoPedidosParametrizado);
 }
 
 
@@ -128,7 +144,16 @@ async function mostrarFormularios(oEvento) {
             break;
 
         //Casos Pedidos
-        case "value":
+        case "mnuAltaPedido":
+            frmAltaPedido.classList.remove("d-none");
+            //ponemos undefined para que no seleccione nada en concreto
+            //porque undefined es como no pasar nada
+            desplegableClientes(undefined); // Cargar el desplegable de clientes
+            desplegablePlatos(undefined);
+            break;
+        case "mnuListadoPedidosParametrizado":
+            frmListadoPedidosParametrizado.classList.remove("d-none");
+            desplegableClientes(undefined);
             break;
     }
 }
@@ -146,8 +171,9 @@ function ocultarFormularios() {
     frmBuscarCliente.classList.add("d-none");
     frmListadoParametrizadoClientes.classList.add("d-none");
     //Ocultar formularios pedidos
-
-
+    frmAltaPedido.classList.add("d-none");
+    frmModificarPedido.classList.add("d-none")
+    frmListadoPedidosParametrizado.classList.add("d-none")
     //Ocultar listados
     // Borrado del contenido de capas con resultados
     document.querySelector("#resultadoBusqueda").innerHTML = "";
@@ -453,3 +479,258 @@ function validarAltaCliente() {
 }
 
 //Funciones pedidos
+// Proceso para dar de alta un pedido
+// No hecho
+async function procesarAltaPedido() {
+    // Recuperar datos del formulario frmAltaComponente
+    let idCliente = frmAltaPedido.lstClienteAltaPedido.value;
+    let fechaAhora = new Date(); //obtener la fecha y hora actual
+    // slice es para decir donde empieza y acaba la cadena, y con replace le decimos que la T la cambie por un espacio
+    // ya que el formato por defecto de toISOString es YYYY-MM-DDTHH:MM:SS
+    let fechaPedido = fechaAhora.toISOString().slice(0, 19).replace('T', ' ');
+    let comentarioPedido = frmAltaPedido.textAreaComentarioAltaPedido.value.trim();
+
+    let descripcion = frmAltaPedido.txtAltaDescripcion.value.trim();
+    let precio = parseFloat(frmAltaPedido.txtAltaPrecio.value.trim());
+
+
+    // Validar datos del formulario
+    if (validarAltaPedido()) {
+        let respuesta = await oEmpresa.altaComponente(new Componente(null, nombre, descripcion, precio, idTipo));
+        alert(respuesta.mensaje);
+
+        if (!respuesta.error) { // Si NO hay error
+            //Resetear formulario
+            frmAltaComponente.reset();
+            // Ocultar el formulario
+            frmAltaComponente.classList.add("d-none");
+        }
+
+    }
+}
+
+// Validacion de valores para añadir un pedido
+// No hecho
+function validarAltaPedido() {
+    // Recuperar datos del formulario frmModificarComponente
+    let comentarioPedido = frmAltaPedido.textAreaComentarioAltaPedido.value.trim();
+
+    let nombre = frmAltaComponente.txtAltaNombre.value.trim();
+    let descripcion = frmAltaComponente.txtAltaDescripcion.value.trim();
+    let precio = parseFloat(frmAltaComponente.txtAltaPrecio.value.trim());
+    let idTipo = frmAltaComponente.lstAltaTipo.value;
+
+    let valido = true;
+    let errores = "";
+
+    if (comentarioPedido.length == 0) {
+        valido = false;
+        errores += "El comentario del pedido no puede estar vacío";
+    }
+
+    // Verificar de que nota no es vacio
+
+    if (!valido) {
+        // Hay errores
+        alert(errores);
+    }
+
+    return valido;
+}
+
+// Proceso para añadir platos a pedidos
+// No hecho
+async function procesarAñadirPlatoPedido() {
+    let idPlato = frmAltaPedido.lstPlatosAltaPedido.value;
+    let notaPlato = frmAltaPedido.notaPlatoAltaPedido.value.trim();
+    let cantidadPlatos = frmAltaPedido.cantidadPlatosAltaPedido.value;
+
+    let respuesta = await oEmpresa.getPlatos(idPlato);
+    let platoSelec = "";
+    if (notaPlato === "") {
+        platoSelec = `<option value="${respuesta.datos.id_plate}">${cantidadPlatos} ${respuesta.datos.name}</option>`;
+    } else {
+        platoSelec = `<option value="${respuesta.datos.id_plate}">${cantidadPlatos} ${respuesta.datos.name} (${notaPlato})</option>`;
+    }
+    // Agrego los options generados a partir del contenido de la BD en todos los desplegables
+    frmAltaPedido.lstPlatosSelectAltaPedido.innerHTML += platoSelec;
+
+
+}
+
+async function procesarBotonEditarBorrarPedido(oEvento) {
+    let boton = null;
+
+    // Verificamos si han hecho clic sobre el botón o el icono
+    if (oEvento.target.nodeName == "I" || oEvento.target.nodeName == "BUTTON") {
+        if (oEvento.target.nodeName == "I") {
+            // Pulsacion sobre el icono
+            boton = oEvento.target.parentElement; // El padre es el boton
+        } else {
+            boton = oEvento.target;
+        }
+
+        // Diferenciar por clase CSS
+        // Todavia no hecho
+        if (boton.classList.contains("btn-primary")) {
+            // Botón editar
+            ocultarFormularios();
+            frmModificarPedido.classList.remove("d-none");
+            let pedido = JSON.parse(boton.dataset.pedido);
+
+            frmModificarPedido.textAreaComentarioModificarPedido.value = pedido.comment;
+            if (pedido.is_completed == 1) {
+                document.getElementById("finalizado").checked = true;
+            } else {
+                document.getElementById("en_preparacion").checked = true;
+            }
+
+            // frmModificarPedido.txtModNombre.value = componente.nombre;
+            // frmModificarPedido.txtModDescripcion.value = componente.descripcion;
+            // frmModificarPedido.txtModPrecio.value = componente.precio;
+            desplegableClientes(pedido.id_client);
+        } else if (boton.classList.contains("btn-danger")) {
+            // Botón borrar
+            let pedido = JSON.parse(boton.dataset.pedido);
+            // constructor(id_client_order, client_order_date, total_price, is_completed, comment, id_client)
+            let respuesta = await oEmpresa.borradoPedido(pedido.id_client_order);
+
+            alert(respuesta.mensaje);
+
+            if (respuesta.ok) { // Si NO hay error
+                // Ocultar el formulario
+                ocultarFormularios()
+            }
+
+        }
+    }
+}
+
+// Helper: formatea 'YYYY-MM-DD HH:MM:SS' o formatos ISO a 'DD/MM/YYYY'
+// Funcion para dar formato a la fecha
+function formatDate(dateTimeString) {
+    if (!dateTimeString) return "";
+    // Tomar solo la parte de fecha (soporta 'YYYY-MM-DD HH:MM:SS' y 'YYYY-MM-DDTHH:MM:SS')
+    let datePart = dateTimeString.split(' ')[0].split('T')[0];
+    let parts = datePart.split('-');
+    if (parts.length !== 3) return dateTimeString;
+    return parts[2] + '/' + parts[1] + '/' + parts[0];
+}
+
+async function procesarListadoPedidos() {
+    //Obtener el listado de componentes
+    let respuesta = await oEmpresa.listadoPedidos();
+
+    let listado = "<table class='table table-striped' id='listadoPedidos'>";
+    listado += "<thead><tr><th>Cliente</th><th>FECHA PEDIDO</th><th>COMENTARIO</th><th>ESTADO</th><th>PRECIO TOTAL</th></tr></thead>";
+    listado += "<tbody>";
+    for (let fila of respuesta.datos) {
+        listado += "<tr><td>" + fila.name + "</td>";
+        // Formateo la fecha
+        listado += "<td>" + formatDate(fila.client_order_date) + "</td>";
+        listado += "<td>" + fila.comment + "</td>";
+        listado += "<td>" + ((fila.is_completed == 1) ? "Finalizado" : "En preparación") + "</td>";
+        listado += "<td>" + fila.total_price + "</td>";
+
+        // Editar
+        listado += "<td><button class='btn btn-primary' data-pedido='" + JSON.stringify(fila) +
+            "'><i class='bi bi-pencil-square'></i></button></td>";
+        // Borrar
+        listado += "<td><button class='btn btn-danger' data-pedido='" + JSON.stringify(fila) +
+            "'><i class='bi bi-trash'></i></button></td></tr>";
+    }
+    listado += "</tbody></table>";
+
+    //agregamos el contenido a la capa de listados
+    ocultarFormularios()
+    document.querySelector("#listados").innerHTML = listado;
+    // Agregar manejador de evento para toda la tabla
+    document.querySelector("#listadoPedidos").addEventListener('click', procesarBotonEditarBorrarPedido);
+}
+
+async function procesarListadoPedidosParametrizado() {
+    // Recuperar idCliente seleccionado
+    let idCliente;
+    if (frmListadoPedidosParametrizado.lstClientesListadoPedidosParametrizado.value != 0) {
+        idCliente = frmListadoPedidosParametrizado.lstClientesListadoPedidosParametrizado.value;
+    }
+
+    let estado;
+    if (frmListadoPedidosParametrizado.finalizadoListadoPedidosParametrizado.checked) {
+        estado = "finalizada";
+    }
+    if (frmListadoPedidosParametrizado.enPreparacionListadoPedidosParametrizado.checked) {
+        estado = "preparandose";
+    }
+
+    let respuesta = await oEmpresa.listadoPedidos(idCliente, estado);
+
+    let listadoParametrizado = "<table class='table table-striped' id='listadoPedidosParametrizado'>";
+    listadoParametrizado += "<thead><tr><th>Cliente</th><th>FECHA PEDIDO</th><th>COMENTARIO</th><th>ESTADO</th><th>PRECIO TOTAL</th></tr></thead>";
+    listadoParametrizado += "<tbody>";
+    for (let fila of respuesta.datos) {
+        listadoParametrizado += "<tr><td>" + fila.name + "</td>";
+        // Formateo la fecha
+        listadoParametrizado += "<td>" + formatDate(fila.client_order_date) + "</td>";
+        listadoParametrizado += "<td>" + fila.comment + "</td>";
+        listadoParametrizado += "<td>" + ((fila.is_completed == 1) ? "Finalizado" : "En preparación") + "</td>";
+        listadoParametrizado += "<td>" + fila.total_price + "</td>";
+
+        // Editar
+        listadoParametrizado += "<td><button class='btn btn-primary' data-pedido='" + JSON.stringify(fila) +
+            "'><i class='bi bi-pencil-square'></i></button></td>";
+        // Borrar
+        listadoParametrizado += "<td><button class='btn btn-danger' data-pedido='" + JSON.stringify(fila) +
+            "'><i class='bi bi-trash'></i></button></td></tr>";
+    }
+    listadoParametrizado += "</tbody></table>";
+
+    //agregamos el contenido a la capa de listados
+    ocultarFormularios()
+    //Esto es para reiniciar el formulario
+    document.getElementById("frmListadoPedidosParametrizado").reset();
+    // //Resetear formulario
+    // frmAltaTipo.reset();
+    document.querySelector("#listados").innerHTML = listadoParametrizado;
+    // Agregar manejador de evento para toda la tabla
+    document.querySelector("#listadoPedidosParametrizado").addEventListener('click', procesarBotonEditarBorrarPedido);
+}
+
+async function desplegableClientes(idClienteSeleccionado) {
+    let respuesta = await oEmpresa.getClientes();
+    let options = "";
+
+    for (let cliente of respuesta.datos) {
+        if (idClienteSeleccionado && idClienteSeleccionado == cliente.id_client) { // Si llega el parámetro ( != undefined )
+            options += "<option selected value='" + cliente.id_client + "' >" + cliente.name + "</option>";
+        } else {
+            options += "<option value='" + cliente.id_client + "' >" + cliente.name + "</option>";
+        }
+
+    }
+    // Agrego los options generados a partir del contenido de la BD en todos los desplegables
+    frmAltaPedido.lstClienteAltaPedido.innerHTML = options;
+    // Añado el cliente a modificar pedido
+    frmModificarPedido.lstClienteModificarPedido.innerHTML = options;
+    // Añado los clientes para el listado parametrizado
+    frmListadoPedidosParametrizado.lstClientesListadoPedidosParametrizado.innerHTML = "<option value='0'>Selecione un cliente</option>" + options;
+}
+
+async function desplegablePlatos(idPlatoSeleccionado) {
+    let respuesta = await oEmpresa.getPlatos();
+    let options = "";
+
+    for (let plato of respuesta.datos) {
+        if (idPlatoSeleccionado && idPlatoSeleccionado == plato.id_plate) { // Si llega el parámetro ( != undefined )
+            options += "<option selected value='" + plato.id_plate + "' >" + plato.name + "__" + plato.price + "</option>";
+        } else {
+            options += "<option value='" + plato.id_plate + "' >" + plato.name + "__" + plato.price + "</option>";
+        }
+
+    }
+    // Agrego los options generados a partir del contenido de la BD en todos los desplegables
+    frmAltaPedido.lstPlatosAltaPedido.innerHTML = options;
+    // Me servira mas adelante si hago modificacion de pedidos
+    // frmModificarComponente.lstModTipo.innerHTML = options;
+    // frmAltaComponente.lstAltaTipo.innerHTML = options;
+}

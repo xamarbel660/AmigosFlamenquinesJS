@@ -33,21 +33,24 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- Reservas -->
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							Reservas
-						</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" id="mnuAltaReserva" name="mnuAltaReserva" href="#">Alta de reserva</a></li>
-							<li>
-								<hr class="dropdown-divider">
-							</li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Reservas
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" id="mnuAltaReserva" name="mnuAltaReserva" href="#">Alta de
+                                    reserva</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
 
-							<li><a class="dropdown-item" id="mnuBuscarReserva" name="mnuBuscarReserva" href="#">Buscar reservas</a></li>
-							<li><a class="dropdown-item" id="mnuListadoReserva" name="mnuListadoReserva" href="#">Listado de reservas</a></li>
-						</ul>
-					</li>
+                            <li><a class="dropdown-item" id="mnuBuscarReserva" name="mnuBuscarReserva" href="#">Buscar
+                                    reservas</a></li>
+                            <li><a class="dropdown-item" id="mnuListadoReserva" name="mnuListadoReserva"
+                                    href="#">Listado de reservas</a></li>
+                        </ul>
+                    </li>
                     <!-- Clientes -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
@@ -84,493 +87,677 @@
                                     pedido</a></li>
                             <li><a class="dropdown-item" href="#">Buscar un
                                     pedido</a></li>
-                            <li><a class="dropdown-item" href="#">Modificar
-                                    un pedido</a></li>
-                            <li><a class="dropdown-item" href="#">Borrar un
-                                    pedido</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Listado de
+                            <li><a class="dropdown-item" href="#" id="mnuListadoPedidos">Listado de
                                     pedidos</a></li>
-                            <li><a class="dropdown-item" href="#">Listado de
-                                    pedidos por</a></li>
+                            <li><a class="dropdown-item" href="#" id="mnuListadoPedidosParametrizado">Listado de
+                                    pedidos parametrizado</a></li>
                         </ul>
                     </li>
 
                 </ul>
             </div>
-        </nav>
+    </nav>
 
-        <!-- Modal-->
+    <!-- Modal-->
 
-        <div class="modal" id="modal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary text-white">
-                        <h5 class="modal-title" id="tituloModal">Titulo</h5>
-                        <button type="button" class="btn-close"
-                            data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body row justify-content-center">
-                        <img class="img-fluid col-8 " id="imagenModal" src="#">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bg-secondary"
-                            data-bs-dismiss="modal">Entendido</button>
-                    </div>
+    <div class="modal" id="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="tituloModal">Titulo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body row justify-content-center">
+                    <img class="img-fluid col-8 " id="imagenModal" src="#">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-secondary" data-bs-dismiss="modal">Entendido</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Formularios de la página-->
-        <div class="container" id="formularios">
+    <!-- Formularios de la página-->
+    <div class="container" id="formularios">
 
-            <!-- Formularios Reservas-->
-            <form class="form-horizontal d-none" name="frmBuscarReserva" id="frmBuscarReserva">
-                <fieldset class="row ">
-                    <legend>Buscar reservas</legend>
+        <!-- Formularios Reservas-->
+        <form class="form-horizontal d-none" name="frmBuscarReserva" id="frmBuscarReserva">
+            <fieldset class="row ">
+                <legend>Buscar reservas</legend>
 
-                    <div class="row justify-content-between my-4">
-                        <!-- Cliente -->
-                        <div class="form-group col-12">
-                            <label class="col-xs-4 control-label" for="selClient">Cliente: </label>
-                            <div class="col-xs-4">
-                                <select id="selClient" name="selClient" class="form-control input-md">
-                                    <option value="">-- Sin filtro --</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Fecha de la reserva -->
+                <div class="row justify-content-between my-4">
+                    <!-- Cliente -->
                     <div class="form-group col-12">
-                        <label class="col-xs-4 control-label" for="inpDate">Fecha: </label>
+                        <label class="col-xs-4 control-label" for="selClient">Cliente: </label>
                         <div class="col-xs-4">
-                            <input id="inpDate" name="inpDate" placeholder="Fecha de la reserva"
-                                class="form-control input-md" type="date">
-                        </div>
-                    </div>
-
-                    <!-- Fecha de la reserva -->
-                    <div class="form-group col-12">
-                        <label class="col-xs-4 control-label" for="inpTime">Hora: </label>
-                        <div class="col-xs-4">
-                            <input id="inpTime" name="inpTime" placeholder="Hora de la reserva"
-                                class="form-control input-md" type="time">
-                        </div>
-                    </div>
-                    
-                    <div class="row justify-content-between my-4">
-                        <!-- Número de invitados de la reserva -->
-                        <div class="form-group col-3">
-                            <label class="col-xs-4 control-label" for="numClients">Número de invitados: </label>
-                            <div class="col-xs-4">
-                                <input id="numClients" name="numClients" class="form-control input-md"
-                                    type="number" min="1">
-                            </div>
-                        </div>
-                        <!-- Es de noche la reserva? -->
-                        <div class="form-group col-3">
-                            <label class="col-xs-4 control-label" for="selNight">¿Por la noche?: </label>
-                            <div class="col-xs-4">
-                                <select id="selNight" name="selNight" class="form-control input-md">
-                                    <option value="">-- Sin filtro --</option>
-                                    <option value="1">Solo de noche</option>
-                                    <option value="0">Solo de día</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Mesa -->
-                    <div class="form-group col-12">
-                        <label class="col-xs-4 control-label" for="selBoard">Mesa: </label>
-                        <div class="col-xs-4">
-                            <select id="selBoard" name="selBoard" class="form-control input-md">
-                                <option value="">-- Selecciona una mesa --</option>
+                            <select id="selClient" name="selClient" class="form-control input-md">
+                                <option value="">-- Sin filtro --</option>
                             </select>
                         </div>
                     </div>
-                    
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarBuscarReserva"></label>
+                </div>
+
+                <!-- Fecha de la reserva -->
+                <div class="form-group col-12">
+                    <label class="col-xs-4 control-label" for="inpDate">Fecha: </label>
+                    <div class="col-xs-4">
+                        <input id="inpDate" name="inpDate" placeholder="Fecha de la reserva"
+                            class="form-control input-md" type="date">
+                    </div>
+                </div>
+
+                <!-- Fecha de la reserva -->
+                <div class="form-group col-12">
+                    <label class="col-xs-4 control-label" for="inpTime">Hora: </label>
+                    <div class="col-xs-4">
+                        <input id="inpTime" name="inpTime" placeholder="Hora de la reserva"
+                            class="form-control input-md" type="time">
+                    </div>
+                </div>
+
+                <div class="row justify-content-between my-4">
+                    <!-- Número de invitados de la reserva -->
+                    <div class="form-group col-3">
+                        <label class="col-xs-4 control-label" for="numClients">Número de invitados: </label>
                         <div class="col-xs-4">
-                            <input type="submit" id="btnAceptarBuscarReserva"
-                                class="btn bg-secondary" value="Aceptar" />
+                            <input id="numClients" name="numClients" class="form-control input-md" type="number"
+                                min="1">
                         </div>
                     </div>
-                </fieldset>
-            </form>
-
-            <form class="form-horizontal d-none" name="frmAltaReserva" id="frmAltaReserva">
-                <fieldset class="row ">
-                    <legend>Alta de reserva</legend>
-
-                    <div class="row justify-content-between my-4">
-                        <!-- Cliente -->
-                        <div class="form-group col-12">
-                            <label class="col-xs-4 control-label" for="id_client">Cliente: </label>
-                            <div class="col-xs-4">
-                                <select id="id_client" name="id_client" class="form-control input-md" required>
-                                    <option value="">-- Selecciona un cliente --</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Fecha de la reserva -->
-                    <div class="form-group col-12">
-                        <label class="col-xs-4 control-label" for="reservation_date">Fecha: </label>
+                    <!-- Es de noche la reserva? -->
+                    <div class="form-group col-3">
+                        <label class="col-xs-4 control-label" for="selNight">¿Por la noche?: </label>
                         <div class="col-xs-4">
-                            <input id="reservation_date" name="reservation_date" placeholder="Fecha de la reserva"
-                                class="form-control input-md" type="datetime-local" required>
-                        </div>
-                    </div>
-                    
-                    <div class="row justify-content-between my-4">
-                        <!-- Número de invitados de la reserva -->
-                        <div class="form-group col-3">
-                            <label class="col-xs-4 control-label" for="number_of_guests">Número de invitados: </label>
-                            <div class="col-xs-4">
-                                <input id="number_of_guests" name="number_of_guests" value="1" class="form-control input-md"
-                                    type="number" min="1" required>
-                            </div>
-                        </div>
-
-                        <!-- Comentarios adicionales -->
-                        <div class="form-group col-6">
-                            <label class="col-xs-4 control-label" for="comment">Comentarios: </label>
-                            <div class="col-xs-4">
-                                <input id="comment" name="comment" class="form-control input-md"
-                                    type="text" maxlength="50">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Mesa -->
-                    <div class="form-group col-12">
-                        <label class="col-xs-4 control-label" for="id_board">Mesa: </label>
-                        <div class="col-xs-4">
-                            <select id="id_board" name="id_board" class="form-control input-md" required>
-                                <option value="">-- Selecciona una mesa --</option>
+                            <select id="selNight" name="selNight" class="form-control input-md">
+                                <option value="">-- Sin filtro --</option>
+                                <option value="1">Solo de noche</option>
+                                <option value="0">Solo de día</option>
                             </select>
                         </div>
                     </div>
-                    
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarAltaReserva"></label>
-                        <div class="col-xs-4">
-                            <input type="submit" id="btnAceptarAltaReserva" name="btnAceptarAltaReserva"
-                                class="btn bg-secondary" value="Aceptar" />
-                        </div>
+                </div>
+                <!-- Mesa -->
+                <div class="form-group col-12">
+                    <label class="col-xs-4 control-label" for="selBoard">Mesa: </label>
+                    <div class="col-xs-4">
+                        <select id="selBoard" name="selBoard" class="form-control input-md">
+                            <option value="">-- Selecciona una mesa --</option>
+                        </select>
                     </div>
-                </fieldset>
-            </form>
+                </div>
 
-            <form class="form-horizontal d-none" name="frmEditarReserva" id="frmEditarReserva">
-                <fieldset class="row ">
-                    <legend>Editar reserva</legend>
-
-                    <div class="row justify-content-between my-4">
-                        <!-- Cliente -->
-                        <div class="form-group col-12">
-                            <label class="col-xs-4 control-label" for="sel_id_client">Cliente: </label>
-                            <div class="col-xs-4">
-                                <select id="sel_id_client" name="sel_id_client" class="form-control input-md" required>
-                                </select>
-                            </div>
-                        </div>
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarBuscarReserva"></label>
+                    <div class="col-xs-4">
+                        <input type="submit" id="btnAceptarBuscarReserva" class="btn bg-secondary" value="Aceptar" />
                     </div>
+                </div>
+            </fieldset>
+        </form>
 
-                    <!-- Fecha de la reserva -->
+        <form class="form-horizontal d-none" name="frmAltaReserva" id="frmAltaReserva">
+            <fieldset class="row ">
+                <legend>Alta de reserva</legend>
+
+                <div class="row justify-content-between my-4">
+                    <!-- Cliente -->
                     <div class="form-group col-12">
-                        <label class="col-xs-4 control-label" for="reservation_date">Fecha: </label>
+                        <label class="col-xs-4 control-label" for="id_client">Cliente: </label>
                         <div class="col-xs-4">
-                            <input id="reservation_date" name="reservation_date" placeholder="Fecha de la reserva"
-                                class="form-control input-md" type="datetime-local"  required>
-                        </div>
-                    </div>
-                    
-                    <div class="row justify-content-between my-4">
-                        <!-- Número de invitados de la reserva -->
-                        <div class="form-group col-3">
-                            <label class="col-xs-4 control-label" for="number_of_guests">Número de invitados: </label>
-                            <div class="col-xs-4">
-                                <input id="number_of_guests" name="number_of_guests" class="form-control input-md"
-                                    type="number" min="1" required>
-                            </div>
-                        </div>
-
-                        <!-- Comentarios adicionales -->
-                        <div class="form-group col-6">
-                            <label class="col-xs-4 control-label" for="comment">Comentarios: </label>
-                            <div class="col-xs-4">
-                                <input id="comment" name="comment" class="form-control input-md"
-                                    type="text" maxlength="50">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Mesa -->
-                    <div class="form-group col-12">
-                        <label class="col-xs-4 control-label" for="sel_id_board">Mesa: </label>
-                        <div class="col-xs-4">
-                            <select id="sel_id_board" name="sel_id_board" class="form-control input-md" required>
+                            <select id="id_client" name="id_client" class="form-control input-md" required>
+                                <option value="">-- Selecciona un cliente --</option>
                             </select>
                         </div>
                     </div>
-                    
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarEditarReserva"></label>
+                </div>
+
+                <!-- Fecha de la reserva -->
+                <div class="form-group col-12">
+                    <label class="col-xs-4 control-label" for="reservation_date">Fecha: </label>
+                    <div class="col-xs-4">
+                        <input id="reservation_date" name="reservation_date" placeholder="Fecha de la reserva"
+                            class="form-control input-md" type="datetime-local" required>
+                    </div>
+                </div>
+
+                <div class="row justify-content-between my-4">
+                    <!-- Número de invitados de la reserva -->
+                    <div class="form-group col-3">
+                        <label class="col-xs-4 control-label" for="number_of_guests">Número de invitados: </label>
                         <div class="col-xs-4">
-                            <input type="hidden" name="id_reservation" required>
-                            <input type="submit" id="btnAceptarEditarReserva" name="btnAceptarEditarReserva"
-                                class="btn bg-secondary" value="Editar" />
+                            <input id="number_of_guests" name="number_of_guests" value="1" class="form-control input-md"
+                                type="number" min="1" required>
                         </div>
                     </div>
-                </fieldset>
-            </form>
 
-                <!-- Formularios Reservas-->
-
-                <!-- Fin Formularios Reservas-->
-
-                <!-- Formularios Clientes-->
-
-                <!--Alta cliente-->
-                <form class="form-horizontal d-none" name="frmAltaCliente"
-                    id="frmAltaCliente">
-                    <fieldset class="row ">
-                        <legend>Alta de cliente</legend>
-                        <!-- Nombre del cliente -->
-                        <div class="form-group col-12">
-                            <label class="col-xs-4 control-label"
-                                for="nombreCliente">Nombre: </label>
-                            <div class="col-xs-4">
-                                <input id="nombreCliente" name="nombreCliente"
-                                    placeholder="Escribe aquí el nombre del cliente..."
-                                    class="form-control input-md"
-                                    type="text">
-                            </div>
+                    <!-- Comentarios adicionales -->
+                    <div class="form-group col-6">
+                        <label class="col-xs-4 control-label" for="comment">Comentarios: </label>
+                        <div class="col-xs-4">
+                            <input id="comment" name="comment" class="form-control input-md" type="text" maxlength="50">
                         </div>
+                    </div>
+                </div>
+                <!-- Mesa -->
+                <div class="form-group col-12">
+                    <label class="col-xs-4 control-label" for="id_board">Mesa: </label>
+                    <div class="col-xs-4">
+                        <select id="id_board" name="id_board" class="form-control input-md" required>
+                            <option value="">-- Selecciona una mesa --</option>
+                        </select>
+                    </div>
+                </div>
 
-                        <div class="row justify-content-between my-4 ">
-                            <!-- Edad del cliente -->
-                            <div class="form-group col-3">
-                                <label class="col-xs-4 control-label"
-                                    for="edadCliente">Edad: </label>
-                                <div class="col-xs-4">
-                                    <input id="edadCliente" name="edadCliente"
-                                        value="18" class="form-control input-md"
-                                        type="number" min="16" max="120">
-                                </div>
-                            </div>
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarAltaReserva"></label>
+                    <div class="col-xs-4">
+                        <input type="submit" id="btnAceptarAltaReserva" name="btnAceptarAltaReserva"
+                            class="btn bg-secondary" value="Aceptar" />
+                    </div>
+                </div>
 
-                            <!-- Categoria cliente -->
-                            <div class="form-group col-3">
-                                <label for="lstCategorias">Categoria del
-                                    cliente</label>
-                                <select class="form-select col-7 col-md-5"
-                                    name="lstCategorias" id="lstCategorias"
-                                    aria-label="Default select example">
+            </fieldset>
+        </form>
 
-                                </select>
-                            </div>
+        <form class="form-horizontal d-none" name="frmEditarReserva" id="frmEditarReserva">
+            <fieldset class="row ">
+                <legend>Editar reserva</legend>
 
-                            <!-- Radio VIP -->
-                            <div class="form-group col-3">
-                                <label for="radioVIP">¿Cliente VIP?</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio"
-                                        name="radioVIP" id="radioVIPSi "
-                                        value="1">
-                                    <label class="form-check-label"
-                                        for="radioVIPSi">
-                                        Si
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio"
-                                        name="radioVIP" id="radioVIPNo"
-                                        value="0"
-                                        checked>
-                                    <label class="form-check-label"
-                                        for="radioVIPNo">
-                                        No
-                                    </label>
-                                </div>
-                            </div>
+                <div class="row justify-content-between my-4">
+                    <!-- Cliente -->
+                    <div class="form-group col-12">
+                        <label class="col-xs-4 control-label" for="sel_id_client">Cliente: </label>
+                        <div class="col-xs-4">
+                            <select id="sel_id_client" name="sel_id_client" class="form-control input-md" required>
+                            </select>
                         </div>
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label"
-                                for="btnAceptarAltaCliente"></label>
-                            <div class="col-xs-4">
-                                <input type="button" id="btnAceptarAltaCliente"
-                                    name="btnAceptarAltaCliente"
-                                    class="btn bg-secondary" value="Aceptar" />
-                            </div>
+                    </div>
+                </div>
+
+                <!-- Fecha de la reserva -->
+                <div class="form-group col-12">
+                    <label class="col-xs-4 control-label" for="reservation_date">Fecha: </label>
+                    <div class="col-xs-4">
+                        <input id="reservation_date" name="reservation_date" placeholder="Fecha de la reserva"
+                            class="form-control input-md" type="datetime-local" required>
+                    </div>
+                </div>
+
+                <div class="row justify-content-between my-4">
+                    <!-- Número de invitados de la reserva -->
+                    <div class="form-group col-3">
+                        <label class="col-xs-4 control-label" for="number_of_guests">Número de invitados: </label>
+                        <div class="col-xs-4">
+                            <input id="number_of_guests" name="number_of_guests" class="form-control input-md"
+                                type="number" min="1" required>
                         </div>
-                    </fieldset>
-                </form>
+                    </div>
 
-                <!-- Buscar Cliente-->
-                <form class="form-horizontal d-none" name="frmBuscarCliente"
-                    id="frmBuscarCliente">
-                    <fieldset>
-                        <!-- Form Name -->
-                        <legend>Buscar un cliente</legend>
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label"
-                                for="idClienteBuscar">Id del cliente: </label>
-                            <div class="col-xs-4">
-                                <input id="idClienteBuscar"
-                                    name="idClienteBuscar"
-                                    class="form-control input-md"
-                                    type="number">
-                            </div>
+                    <!-- Comentarios adicionales -->
+                    <div class="form-group col-6">
+                        <label class="col-xs-4 control-label" for="comment">Comentarios: </label>
+                        <div class="col-xs-4">
+                            <input id="comment" name="comment" class="form-control input-md" type="text" maxlength="50">
                         </div>
+                    </div>
+                </div>
+                <!-- Mesa -->
+                <div class="form-group col-12">
+                    <label class="col-xs-4 control-label" for="sel_id_board">Mesa: </label>
+                    <div class="col-xs-4">
+                        <select id="sel_id_board" name="sel_id_board" class="form-control input-md" required>
+                        </select>
+                    </div>
+                </div>
 
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label"
-                                for="btnAceptarBuscarCliente"></label>
-                            <div class="col-xs-4">
-                                <input type="submit"
-                                    id="btnAceptarBuscarCliente"
-                                    name="btnAceptarBuscarCliente"
-                                    class="btn bg-secondary" value="Aceptar" />
-                            </div>
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarEditarReserva"></label>
+                    <div class="col-xs-4">
+                        <input type="hidden" name="id_reservation" required>
+                        <input type="submit" id="btnAceptarEditarReserva" name="btnAceptarEditarReserva"
+                            class="btn bg-secondary" value="Editar" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+        <!-- Formularios Reservas-->
+
+        <!-- Fin Formularios Reservas-->
+
+        <!-- Formularios Clientes-->
+
+        <!--Alta cliente-->
+        <form class="form-horizontal d-none" name="frmAltaCliente" id="frmAltaCliente">
+            <fieldset class="row ">
+                <legend>Alta de cliente</legend>
+                <!-- Nombre del cliente -->
+                <div class="form-group col-12">
+                    <label class="col-xs-4 control-label" for="nombreCliente">Nombre: </label>
+                    <div class="col-xs-4">
+                        <input id="nombreCliente" name="nombreCliente"
+                            placeholder="Escribe aquí el nombre del cliente..." class="form-control input-md"
+                            type="text">
+                    </div>
+                </div>
+
+                <div class="row justify-content-between my-4 ">
+                    <!-- Edad del cliente -->
+                    <div class="form-group col-3">
+                        <label class="col-xs-4 control-label" for="edadCliente">Edad: </label>
+                        <div class="col-xs-4">
+                            <input id="edadCliente" name="edadCliente" value="18" class="form-control input-md"
+                                type="number" min="16" max="120">
                         </div>
-                    </fieldset>
-                </form>
+                    </div>
 
-                <!-- Listado Parametrizado Clientes-->
-                <form class="form-horizontal d-none row"
-                    name="frmListadoParametrizadoClientes"
-                    id="frmListadoParametrizadoClientes" method="get">
-                    <fieldset>
-                        <!-- Form Name -->
-                        <legend>Listado Parametrizado de Clientes</legend>
+                    <!-- Categoria cliente -->
+                    <div class="form-group col-3">
+                        <label for="lstCategorias">Categoria del
+                            cliente</label>
+                        <select class="form-select col-7 col-md-5" name="lstCategorias" id="lstCategorias"
+                            aria-label="Default select example">
 
-                        <div class="form-group col-12 mb-2">
-                            <label class="col-xs-4 control-label"
-                                for="nombreCliente">Nombre del cliente: </label>
-                            <div class="col-xs-4">
-                                <input id="nombreCliente" name="nombreCliente"
-                                    class="form-control input-md" type="text"
-                                    placeholder="Escribe aquí su nombre o parte de él...">
-                            </div>
+                        </select>
+                    </div>
+
+                    <!-- Radio VIP -->
+                    <div class="form-group col-3">
+                        <label for="radioVIP">¿Cliente VIP?</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radioVIP" id="radioVIPSi " value="1">
+                            <label class="form-check-label" for="radioVIPSi">
+                                Si
+                            </label>
                         </div>
-
-                        <div class="form-group col-12 mb-2">
-                            <label class="col-xs-4 control-label"
-                                for="nombreCliente">Fecha añadido: </label>
-                            <div class="col-xs-4">
-                                <input id="fechaAnyadido" name="fechaAnyadido"
-                                    class="form-control input-md" type="date">
-                            </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="radioVIP" id="radioVIPNo" value="0"
+                                checked>
+                            <label class="form-check-label" for="radioVIPNo">
+                                No
+                            </label>
                         </div>
+                    </div>
+                </div>
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarAltaCliente"></label>
+                    <div class="col-xs-4">
+                        <input type="button" id="btnAceptarAltaCliente" name="btnAceptarAltaCliente"
+                            class="btn bg-secondary" value="Aceptar" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
 
-                        <div class="row col-12 mb-2">
-                            <div class="form-group col-6">
-                                <label class="col-xs-4 control-label"
-                                    for="edadCliente">Edad del cliente: </label>
-                                <div class="col-xs-4">
-                                    <input id="edadCliente" name="edadCliente"
-                                        class="form-control input-md"
-                                        type="number"
-                                        min="16" max="120">
-                                </div>
-                            </div>
-                            <div class="form-group col-6">
-                                <label for>¿Cliente VIP?</label>
-                                <div class="col-xs-4">
-                                    <select name="lstEsVip" id="lstEsVip"
-                                        class="form-select"
-                                        aria-label="Default select example">
-                                        <option value="-1" selected>Elige una
-                                            opcion</option>
-                                        <option value="1">Si</option>
-                                        <option value="0">No</option>
-                                    </select>
-                                </div>
-                            </div>
+        <!-- Buscar Cliente-->
+        <form class="form-horizontal d-none" name="frmBuscarCliente" id="frmBuscarCliente">
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Buscar un cliente</legend>
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="idClienteBuscar">Id del cliente: </label>
+                    <div class="col-xs-4">
+                        <input id="idClienteBuscar" name="idClienteBuscar" class="form-control input-md" type="number">
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarBuscarCliente"></label>
+                    <div class="col-xs-4">
+                        <input type="submit" id="btnAceptarBuscarCliente" name="btnAceptarBuscarCliente"
+                            class="btn bg-secondary" value="Aceptar" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+        <!-- Listado Parametrizado Clientes-->
+        <form class="form-horizontal d-none row" name="frmListadoParametrizadoClientes"
+            id="frmListadoParametrizadoClientes" method="get">
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Listado Parametrizado de Clientes</legend>
+
+                <div class="form-group col-12 mb-2">
+                    <label class="col-xs-4 control-label" for="nombreCliente">Nombre del cliente: </label>
+                    <div class="col-xs-4">
+                        <input id="nombreCliente" name="nombreCliente" class="form-control input-md" type="text"
+                            placeholder="Escribe aquí su nombre o parte de él...">
+                    </div>
+                </div>
+
+                <div class="form-group col-12 mb-2">
+                    <label class="col-xs-4 control-label" for="nombreCliente">Fecha añadido: </label>
+                    <div class="col-xs-4">
+                        <input id="fechaAnyadido" name="fechaAnyadido" class="form-control input-md" type="date">
+                    </div>
+                </div>
+
+                <div class="row col-12 mb-2">
+                    <div class="form-group col-6">
+                        <label class="col-xs-4 control-label" for="edadCliente">Edad del cliente: </label>
+                        <div class="col-xs-4">
+                            <input id="edadCliente" name="edadCliente" class="form-control input-md" type="number"
+                                min="16" max="120">
                         </div>
-
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label"
-                                for="btnAceptarBuscarCliente"></label>
-                            <div class="col-xs-4">
-                                <input type="submit"
-                                    id="btnAceptarListadoParametrizado"
-                                    name="btnAceptarListadoParametrizado"
-                                    class="btn bg-secondary" value="Aceptar" />
-                            </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for>¿Cliente VIP?</label>
+                        <div class="col-xs-4">
+                            <select name="lstEsVip" id="lstEsVip" class="form-select"
+                                aria-label="Default select example">
+                                <option value="-1" selected>Elige una
+                                    opcion</option>
+                                <option value="1">Si</option>
+                                <option value="0">No</option>
+                            </select>
                         </div>
-                    </fieldset>
-                </form>
+                    </div>
+                </div>
 
-                <!-- Fin Formularios Clientes-->
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarBuscarCliente"></label>
+                    <div class="col-xs-4">
+                        <input type="submit" id="btnAceptarListadoParametrizado" name="btnAceptarListadoParametrizado"
+                            class="btn bg-secondary" value="Aceptar" />
+                    </div>
+                </div>
+            </fieldset>
+        </form>
 
-                <!-- Formularios Pedidos-->
-                <!-- Alta Pedido -->
-                <form class="form-horizontal d-none" name="frmAltaPedido"
-                    id="frmAltaPedido">
-                    <fieldset>
-                        <!-- Form Name -->
-                        <legend>Alta de tipo de un pedido</legend>
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label"
-                                for="txtTipo">Tipo</label>
-                            <div class="col-xs-4">
-                                <input id="txtTipo" name="txtTipo"
-                                    placeholder="Nombre del tipo"
-                                    class="form-control input-md" type="text">
-                            </div>
+        <!-- Fin Formularios Clientes-->
+
+        <!-- Formularios Pedidos-->
+        <!-- Formulario Alta Pedido -->
+        <form class="form-horizontal d-none" name="frmAltaPedido" id="frmAltaPedido">
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Alta de un pedido</legend>
+                <!-- Text input-->
+
+                <!-- Select Cliente -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="lstClienteAltaPedido">Cliente:</label>
+                    <div class="col-xs-4">
+                        <select class="form-select" name="lstClienteAltaPedido" id="lstClienteAltaPedido">
+
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Fecha Reserva -->
+                <!-- Se almacena en js -->
+
+                <!-- Comentario Pedido -->
+                <div class="row mb-3">
+                    <label class="col-xs-4 control-label" for="textAreaComentarioAltaPedido">Comentario del
+                        pedido:</label>
+                    <div class="col-xs-4">
+                        <textarea name="textAreaComentarioAltaPedido" id="textAreaComentarioAltaPedido"
+                            placeholder="Comentario" cols="60"></textarea>
+                    </div>
+                </div>
+
+                <!-- Lista Platos -->
+                <div class="row mb-3">
+                    <label class="col-12 control-label" for="lstPlatosAltaPedido">Platos:</label>
+                    <div class="col-12 input-group mb-3">
+                        <!-- Lista de platos -->
+                        <select class="form-select col-7 col-md-5" name="lstPlatosAltaPedido" id="lstPlatosAltaPedido"
+                            aria-label="Default select example">
+
+                        </select>
+                        <!-- Cantidad de platos -->
+                        <input class="col-2 border-end-0" type="number" name="cantidadPlatosAltaPedido"
+                            id="cantidadPlatosAltaPedido" min="1" max="20" value="1">
+                        <!-- Boton añadir plato -->
+                        <button class="btn bg-secondary rounded-end-2 col-2" type="button" id="btnAñadirPlatoAltaPedido"
+                            name="btnAñadirPlatoAltaPedido">Agregar</button>
+                        <!-- Label para poder que ocupe el espacio necesario para que quede bien -->
+                        <div class="col-1 col-md-3">
+                            <label for=""></label>
                         </div>
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label"
-                                for="txtDescripcion">Descripcion</label>
-                            <div class="col-xs-4">
-                                <input id="txtDescripcion" name="txtDescripcion"
-                                    placeholder="Descripción del tipo"
-                                    class="form-control input-md" type="text">
-                            </div>
+                    </div>
+
+                    <!-- Nota del plato -->
+                    <div class="col-12 input-group mb-3">
+                        <label class="col-12 control-label" for="notaPlatoAltaPedido">Nota </label>
+                        <textarea placeholder="Sin mucha sal" id="notaPlatoAltaPedido" cols="40"></textarea>
+                    </div>
+                </div>
+
+                <!-- Lista Platos Selecionadas-->
+                <div class="row mb-3">
+                    <label class="col-xs-4 control-label" for="lstPlatosSelectAltaPedido">Platos
+                        Selecionados:</label>
+                    <div class="col-xs-4">
+                        <select name="lstPlatosSelectAltaPedido" id="lstPlatosSelectAltaPedido" class="form-select"
+                            multiple aria-label="Default select example">
+
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Boton Aceptar -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarAltaPedido"></label>
+                    <div class="col-xs-4">
+                        <input type="button" id="btnAceptarAltaPedido" name="btnAceptarAltaPedido"
+                            class="btn bg-secondary" value="Aceptar" />
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+        <!-- Formulario Modificar Pedido -->
+        <form class="form-horizontal d-none" name="frmModificarPedido" id="frmModificarPedido">
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Modificar un pedido</legend>
+                <!-- Text input-->
+
+                <!-- Select Cliente -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="lstClienteModificarPedido">Cliente:</label>
+                    <div class="col-xs-4">
+                        <select class="form-select" name="lstClienteModificarPedido" id="lstClienteModificarPedido">
+
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Fecha Reserva -->
+                <!-- Se almacena en js -->
+
+                <!-- Comentario Pedido -->
+                <div class="row mb-3">
+                    <label class="col-xs-4 control-label" for="textAreaComentarioModificarPedido">Comentario del
+                        pedido:</label>
+                    <div class="col-xs-4">
+                        <textarea name="textAreaComentarioModificarPedido" id="textAreaComentarioModificarPedido"
+                            placeholder="Comentario" cols="60"></textarea>
+                    </div>
+                </div>
+
+                <!-- Estado -->
+                <label class="col-xs-4 control-label" for="txtDescripcion">Estado del pedido</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="estado" id="finalizado" value="1">
+                    <label class="form-check-label" for="finalizado">
+                        Finalizado
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="estado" id="en_preparacion" value="0">
+                    <label class="form-check-label" for="en_preparacion">
+                        En preparación
+                    </label>
+                </div>
+
+                <!-- Lista Platos -->
+                <div class="row mb-3">
+                    <label class="col-12 control-label" for="lstPlatosAltaPedido">Platos:</label>
+                    <div class="col-12 input-group mb-3">
+                        <!-- Lista de platos -->
+                        <select class="form-select col-7 col-md-5" name="lstPlatosAltaPedido" id="lstPlatosAltaPedido"
+                            aria-label="Default select example">
+
+                        </select>
+                        <!-- Cantidad de platos -->
+                        <input class="col-2 border-end-0" type="number" name="cantidadPlatosAltaPedido"
+                            id="cantidadPlatosAltaPedido" min="1" max="20" value="1">
+                        <!-- Boton añadir plato -->
+                        <button class="btn bg-secondary rounded-end-2 col-2" type="button" id="btnAñadirPlatoAltaPedido"
+                            name="btnAñadirPlatoAltaPedido">Agregar</button>
+                        <!-- Label para poder que ocupe el espacio necesario para que quede bien -->
+                        <div class="col-1 col-md-3">
+                            <label for=""></label>
                         </div>
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-xs-4 control-label"
-                                for="btnAceptarAltaTipo"></label>
-                            <div class="col-xs-4">
-                                <input type="button" id="btnAceptarAltaTipo"
-                                    name="btnAceptarAltaTipo"
-                                    class="btn btn-primary" value="Aceptar" />
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-                <!-- Fin Formularios Pedidos-->
-            </div>
+                    </div>
 
-        </div>
+                    <!-- Nota del plato -->
+                    <div class="col-12 input-group mb-3">
+                        <label class="col-12 control-label" for="notaPlatoAltaPedido">Nota </label>
+                        <textarea placeholder="Sin mucha sal" id="notaPlatoAltaPedido" cols="40"></textarea>
+                    </div>
+                </div>
 
-        <div class="container" id="resultadoBusqueda"></div>
-        <div class="container" id="listados"></div>
+                <!-- Lista Platos Selecionadas-->
+                <div class="row mb-3">
+                    <label class="col-xs-4 control-label" for="lstPlatosSelectAltaPedido">Platos
+                        Selecionados:</label>
+                    <div class="col-xs-4">
+                        <select name="lstPlatosSelectAltaPedido" id="lstPlatosSelectAltaPedido" class="form-select"
+                            multiple aria-label="Default select example">
 
-        <!-- El div de abajo lo puso ruben, ver si serviria, por ahora dejo el de carlos que es el de arriba -->
-        <!-- <div class="col-12 text-center" id="listados"></div> -->
+                        </select>
+                    </div>
+                </div>
 
-        <!-- Scripts JS -->
-        <script type="text/javascript" src="js/ajax.js"></script>
-        <script type="text/javascript" src="js/objetos.js"></script>
-        <script type="text/javascript" src="js/codigo.js"></script>
+                <!-- Boton Aceptar -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarAltaPedido"></label>
+                    <div class="col-xs-4">
+                        <input type="button" id="btnAceptarAltaPedido" name="btnAceptarAltaPedido"
+                            class="btn btn-primary" value="Aceptar" />
+                    </div>
+                </div>
 
-    </body>
+            </fieldset>
+        </form>
+        <!-- Formulario Buscar Pedido -->
+        <form class="form-horizontal d-none" name="frmBuscarPedido" id="frmBuscarPedido">
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Listado Parametrizado de Pedidos</legend>
+
+                <div class="form-group col-12 mb-2">
+                    <label class="col-xs-4 control-label" for="lstClientesListadoPedidosParametrizado">Cliente:
+                    </label>
+                    <div class="col-xs-4">
+                        <select class="form-select" name="lstClientesListadoPedidosParametrizado"
+                            id="lstClientesListadoPedidosParametrizado">
+
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Estado -->
+                <label class="col-xs-4 control-label" for="estado">Estado del pedido</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="estado"
+                        id="finalizadoListadoPedidosParametrizado">
+                    <label class="form-check-label" for="finalizado">
+                        Finalizado
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="estado"
+                        id="enPreparacionListadoPedidosParametrizado">
+                    <label class="form-check-label" for="en_preparacion">
+                        En preparación
+                    </label>
+                </div>
+
+                <!-- Boton Aceptar -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarBuscarPedidos"></label>
+                    <div class="col-xs-4">
+                        <input type="button" id="btnAceptarBuscarPedidos"
+                            name="btnAceptarBuscarPedidos" class="btn bg-secondary" value="Aceptar" />
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+        <!-- Formulario Listado Parametrizado -->
+        <form class="form-horizontal d-none" name="frmListadoPedidosParametrizado" id="frmListadoPedidosParametrizado">
+            <fieldset>
+                <!-- Form Name -->
+                <legend>Listado Parametrizado de Pedidos</legend>
+
+                <div class="form-group col-12 mb-2">
+                    <label class="col-xs-4 control-label" for="lstClientesListadoPedidosParametrizado">Cliente:
+                    </label>
+                    <div class="col-xs-4">
+                        <select class="form-select" name="lstClientesListadoPedidosParametrizado"
+                            id="lstClientesListadoPedidosParametrizado">
+
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Estado -->
+                <label class="col-xs-4 control-label" for="estado">Estado del pedido</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="estado"
+                        id="finalizadoListadoPedidosParametrizado">
+                    <label class="form-check-label" for="finalizado">Finalizado</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="estado"
+                        id="enPreparacionListadoPedidosParametrizado">
+                    <label class="form-check-label" for="en_preparacion">En preparación</label>
+                </div>
+
+                <!-- Boton Aceptar -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="btnAceptarListadoPedidosParametrizado"></label>
+                    <div class="col-xs-4">
+                        <input type="button" id="btnAceptarListadoPedidosParametrizado"
+                            name="btnAceptarListadoPedidosParametrizado" class="btn bg-secondary" value="Aceptar" />
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+
+        <!-- Fin Formularios Pedidos-->
+    </div>
+
+
+    <div class="container" id="resultadoBusqueda"></div>
+    <div class="container" id="listados"></div>
+
+    <!-- El div de abajo lo puso ruben, ver si serviria, por ahora dejo el de carlos que es el de arriba -->
+    <!-- <div class="col-12 text-center" id="listados"></div> -->
+
+    <!-- Scripts JS -->
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/objetos.js"></script>
+    <script type="text/javascript" src="js/codigo.js"></script>
+
+</body>
 
 </html>
