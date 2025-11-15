@@ -224,7 +224,7 @@ class Empresa {
     }
 
     async obtenerClientes() {
-        let respuesta = await peticionGET("get_clientes.php", new FormData())
+        let respuesta = await peticionGET("get_clientes2.php", new FormData())
         return respuesta;
     }
     async obtenerMesas() {
