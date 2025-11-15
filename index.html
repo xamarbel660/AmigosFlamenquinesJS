@@ -100,14 +100,31 @@
 
                 </ul>
             </div>
+        </nav>
+
+        <!-- Modal-->
+
+        <div class="modal" id="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="tituloModal">Titulo</h5>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body row justify-content-center">
+                        <img class="img-fluid col-8 " id="imagenModal" src="#">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-secondary"
+                            data-bs-dismiss="modal">Entendido</button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
 
-
-    <!-- Formularios de la página-->
-    <div class="container" id="formularios">
-
-        <div class="row">
+        <!-- Formularios de la página-->
+        <div class="container" id="formularios">
 
             <!-- Formularios Reservas-->
             <form class="form-horizontal d-none" name="frmBuscarReserva" id="frmBuscarReserva">
@@ -315,242 +332,245 @@
                 </fieldset>
             </form>
 
-            <!-- Fin Formularios Reservas-->
+                <!-- Formularios Reservas-->
 
-            <!-- Formularios Clientes-->
+                <!-- Fin Formularios Reservas-->
 
-            <!--Alta cliente-->
-            <form class="form-horizontal d-none" name="frmAltaCliente" id="frmAltaCliente">
-                <fieldset class="row ">
-                    <legend>Alta de cliente</legend>
-                    <!-- Nombre del cliente -->
-                    <div class="form-group col-12">
-                        <label class="col-xs-4 control-label" for="nombreCliente">Nombre: </label>
-                        <div class="col-xs-4">
-                            <input id="nombreCliente" name="nombreCliente"
-                                placeholder="Escribe aquí el nombre del cliente..." class="form-control input-md"
-                                type="text">
-                        </div>
-                    </div>
+                <!-- Formularios Clientes-->
 
-                    <div class="row justify-content-between my-4 ">
-                        <!-- Edad del cliente -->
-                        <div class="form-group col-3">
-                            <label class="col-xs-4 control-label" for="edadCliente">Edad: </label>
+                <!--Alta cliente-->
+                <form class="form-horizontal d-none" name="frmAltaCliente"
+                    id="frmAltaCliente">
+                    <fieldset class="row ">
+                        <legend>Alta de cliente</legend>
+                        <!-- Nombre del cliente -->
+                        <div class="form-group col-12">
+                            <label class="col-xs-4 control-label"
+                                for="nombreCliente">Nombre: </label>
                             <div class="col-xs-4">
-                                <input id="edadCliente" name="edadCliente" value="18" class="form-control input-md"
-                                    type="number" min="16" max="120">
+                                <input id="nombreCliente" name="nombreCliente"
+                                    placeholder="Escribe aquí el nombre del cliente..."
+                                    class="form-control input-md"
+                                    type="text">
                             </div>
                         </div>
 
-                        <!-- Radio VIP -->
-                        <div class="form-group col-3">
-                            <label for>¿Cliente VIP?</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radioVIP" id="radioVIPSi " value="1">
-                                <label class="form-check-label" for="radioVIPSi">
-                                    Si
-                                </label>
+                        <div class="row justify-content-between my-4 ">
+                            <!-- Edad del cliente -->
+                            <div class="form-group col-3">
+                                <label class="col-xs-4 control-label"
+                                    for="edadCliente">Edad: </label>
+                                <div class="col-xs-4">
+                                    <input id="edadCliente" name="edadCliente"
+                                        value="18" class="form-control input-md"
+                                        type="number" min="16" max="120">
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radioVIP" id="radioVIPNo" value="0"
-                                    checked>
-                                <label class="form-check-label" for="radioVIPNo">
-                                    No
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarAltaCliente"></label>
-                        <div class="col-xs-4">
-                            <input type="submit" id="btnAceptarAltaCliente" name="btnAceptarAltaCliente"
-                                class="btn bg-secondary" value="Aceptar" />
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
 
-            <!-- Buscar Cliente-->
-            <form class="form-horizontal d-none" name="frmBuscarCliente" id="frmBuscarCliente">
-                <fieldset>
-                    <!-- Form Name -->
-                    <legend>Buscar un cliente</legend>
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="idClienteBuscar">Id del cliente: </label>
-                        <div class="col-xs-4">
-                            <input id="idClienteBuscar" name="idClienteBuscar" class="form-control input-md"
-                                type="number">
-                        </div>
-                    </div>
-
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarBuscarCliente"></label>
-                        <div class="col-xs-4">
-                            <input type="submit" id="btnAceptarBuscarCliente" name="btnAceptarBuscarCliente"
-                                class="btn bg-secondary" value="Aceptar" />
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-
-            <!-- Listado Parametrizado Clientes-->
-            <form class="form-horizontal d-none row" name="frmListadoParametrizadoClientes"
-                id="frmListadoParametrizadoClientes" method="get">
-                <fieldset>
-                    <!-- Form Name -->
-                    <legend>Listado Parametrizado de Clientes</legend>
-
-                    <div class="form-group col-12 mb-2">
-                        <label class="col-xs-4 control-label" for="nombreCliente">Nombre del cliente: </label>
-                        <div class="col-xs-4">
-                            <input id="nombreCliente" name="nombreCliente" class="form-control input-md" type="text"
-                                placeholder="Escribe aquí su nombre o parte de él...">
-                        </div>
-                    </div>
-
-                    <div class="form-group col-12 mb-2">
-                        <label class="col-xs-4 control-label" for="nombreCliente">Fecha añadido: </label>
-                        <div class="col-xs-4">
-                            <input id="fechaAnyadido" name="fechaAnyadido" class="form-control input-md" type="date">
-                        </div>
-                    </div>
-
-                    <div class="row col-12 mb-2">
-                        <div class="form-group col-6">
-                            <label class="col-xs-4 control-label" for="edadCliente">Edad del cliente: </label>
-                            <div class="col-xs-4">
-                                <input id="edadCliente" name="edadCliente" class="form-control input-md" type="number"
-                                    min="16" max="120">
-                            </div>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for>¿Cliente VIP?</label>
-                            <div class="col-xs-4">
-                                <select name="lstEsVip" id="lstEsVip" class="form-select"
+                            <!-- Categoria cliente -->
+                            <div class="form-group col-3">
+                                <label for="lstCategorias">Categoria del
+                                    cliente</label>
+                                <select class="form-select col-7 col-md-5"
+                                    name="lstCategorias" id="lstCategorias"
                                     aria-label="Default select example">
-                                    <option value="-1" selected>Elige una
-                                        opcion</option>
-                                    <option value="1">Si</option>
-                                    <option value="0">No</option>
+
                                 </select>
                             </div>
+
+                            <!-- Radio VIP -->
+                            <div class="form-group col-3">
+                                <label for="radioVIP">¿Cliente VIP?</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                        name="radioVIP" id="radioVIPSi "
+                                        value="1">
+                                    <label class="form-check-label"
+                                        for="radioVIPSi">
+                                        Si
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                        name="radioVIP" id="radioVIPNo"
+                                        value="0"
+                                        checked>
+                                    <label class="form-check-label"
+                                        for="radioVIPNo">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarBuscarCliente"></label>
-                        <div class="col-xs-4">
-                            <input type="submit" id="btnAceptarListadoParametrizado"
-                                name="btnAceptarListadoParametrizado" class="btn bg-secondary" value="Aceptar" />
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarAltaCliente"></label>
+                            <div class="col-xs-4">
+                                <input type="button" id="btnAceptarAltaCliente"
+                                    name="btnAceptarAltaCliente"
+                                    class="btn bg-secondary" value="Aceptar" />
+                            </div>
                         </div>
-                    </div>
-                </fieldset>
-            </form>
+                    </fieldset>
+                </form>
 
+                <!-- Buscar Cliente-->
+                <form class="form-horizontal d-none" name="frmBuscarCliente"
+                    id="frmBuscarCliente">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <legend>Buscar un cliente</legend>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="idClienteBuscar">Id del cliente: </label>
+                            <div class="col-xs-4">
+                                <input id="idClienteBuscar"
+                                    name="idClienteBuscar"
+                                    class="form-control input-md"
+                                    type="number">
+                            </div>
+                        </div>
 
-            <!-- <div class="form-group col-12 mb-2">
-                <label class="col-xs-4 control-label" for="nombreCliente">Nombre del cliente: </label>
-                <div class="col-xs-4">
-                    <input id="nombreCliente" name="nombreCliente" class="form-control input-md" type="text"
-                        placeholder="Escribe aquí su nombre o parte de él...">
-                </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarBuscarCliente"></label>
+                            <div class="col-xs-4">
+                                <input type="submit"
+                                    id="btnAceptarBuscarCliente"
+                                    name="btnAceptarBuscarCliente"
+                                    class="btn bg-secondary" value="Aceptar" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- Listado Parametrizado Clientes-->
+                <form class="form-horizontal d-none row"
+                    name="frmListadoParametrizadoClientes"
+                    id="frmListadoParametrizadoClientes" method="get">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <legend>Listado Parametrizado de Clientes</legend>
+
+                        <div class="form-group col-12 mb-2">
+                            <label class="col-xs-4 control-label"
+                                for="nombreCliente">Nombre del cliente: </label>
+                            <div class="col-xs-4">
+                                <input id="nombreCliente" name="nombreCliente"
+                                    class="form-control input-md" type="text"
+                                    placeholder="Escribe aquí su nombre o parte de él...">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-12 mb-2">
+                            <label class="col-xs-4 control-label"
+                                for="nombreCliente">Fecha añadido: </label>
+                            <div class="col-xs-4">
+                                <input id="fechaAnyadido" name="fechaAnyadido"
+                                    class="form-control input-md" type="date">
+                            </div>
+                        </div>
+
+                        <div class="row col-12 mb-2">
+                            <div class="form-group col-6">
+                                <label class="col-xs-4 control-label"
+                                    for="edadCliente">Edad del cliente: </label>
+                                <div class="col-xs-4">
+                                    <input id="edadCliente" name="edadCliente"
+                                        class="form-control input-md"
+                                        type="number"
+                                        min="16" max="120">
+                                </div>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for>¿Cliente VIP?</label>
+                                <div class="col-xs-4">
+                                    <select name="lstEsVip" id="lstEsVip"
+                                        class="form-select"
+                                        aria-label="Default select example">
+                                        <option value="-1" selected>Elige una
+                                            opcion</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarBuscarCliente"></label>
+                            <div class="col-xs-4">
+                                <input type="submit"
+                                    id="btnAceptarListadoParametrizado"
+                                    name="btnAceptarListadoParametrizado"
+                                    class="btn bg-secondary" value="Aceptar" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- Fin Formularios Clientes-->
+
+                <!-- Formularios Pedidos-->
+                <!-- Alta Pedido -->
+                <form class="form-horizontal d-none" name="frmAltaPedido"
+                    id="frmAltaPedido">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <legend>Alta de tipo de un pedido</legend>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="txtTipo">Tipo</label>
+                            <div class="col-xs-4">
+                                <input id="txtTipo" name="txtTipo"
+                                    placeholder="Nombre del tipo"
+                                    class="form-control input-md" type="text">
+                            </div>
+                        </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="txtDescripcion">Descripcion</label>
+                            <div class="col-xs-4">
+                                <input id="txtDescripcion" name="txtDescripcion"
+                                    placeholder="Descripción del tipo"
+                                    class="form-control input-md" type="text">
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarAltaTipo"></label>
+                            <div class="col-xs-4">
+                                <input type="button" id="btnAceptarAltaTipo"
+                                    name="btnAceptarAltaTipo"
+                                    class="btn btn-primary" value="Aceptar" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <!-- Fin Formularios Pedidos-->
             </div>
 
-            <div class="form-group col-12 mb-2">
-                <label class="col-xs-4 control-label" for="fechaAnyadido">Fecha añadido: </label>
-                <div class="col-xs-4">
-                    <input id="fechaAnyadido" name="fechaAnyadido" class="form-control input-md" type="date">
-                </div>
-            </div>
-
-            <div class="row col-12 mb-2">
-                <div class="form-group col-6">
-                    <label class="col-xs-4 control-label" for="edadCliente">Edad del cliente: </label>
-                    <div class="col-xs-4">
-                        <input id="edadCliente" name="edadCliente" class="form-control input-md" type="number" min="16"
-                            max="120">
-                    </div>
-                </div>
-                <div class="form-group col-6">
-                    <label for>¿Cliente VIP?</label>
-                    <div class="col-xs-4">
-                        <select name="lstEsVip" id="lstEsVip" class="form-select" aria-label="Default select example">
-                            <option value="-1" selected>Elige una
-                                opcion</option>
-                            <option value="1">Si</option>
-                            <option value="0">No</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <label class="col-xs-4 control-label" for="btnAceptarBuscarCliente"></label>
-                <div class="col-xs-4">
-                    <input type="submit" id="btnAceptarListadoParametrizado" name="btnAceptarListadoParametrizado"
-                        class="btn bg-secondary" value="Aceptar" />
-                </div>
-            </div>
-            </fieldset>
-            </form> -->
-
-            <!-- Fin Formularios Clientes-->
-
-            <!-- Formularios Pedidos-->
-            <!-- Alta Pedido -->
-            <form class="form-horizontal d-none" name="frmAltaPedido" id="frmAltaPedido">
-                <fieldset>
-                    <!-- Form Name -->
-                    <legend>Alta de tipo de un pedido</legend>
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="txtTipo">Tipo</label>
-                        <div class="col-xs-4">
-                            <input id="txtTipo" name="txtTipo" placeholder="Nombre del tipo"
-                                class="form-control input-md" type="text">
-                        </div>
-                    </div>
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="txtDescripcion">Descripcion</label>
-                        <div class="col-xs-4">
-                            <input id="txtDescripcion" name="txtDescripcion" placeholder="Descripción del tipo"
-                                class="form-control input-md" type="text">
-                        </div>
-                    </div>
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarAltaTipo"></label>
-                        <div class="col-xs-4">
-                            <input type="button" id="btnAceptarAltaTipo" name="btnAceptarAltaTipo"
-                                class="btn btn-primary" value="Aceptar" />
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-            <!-- Fin Formularios Pedidos-->
         </div>
 
-    </div>
+        <div class="container" id="resultadoBusqueda"></div>
+        <div class="container" id="listados"></div>
 
-    <div class="container" id="resultadoBusqueda"></div>
-    <div class="container" id="listados"></div>
+        <!-- El div de abajo lo puso ruben, ver si serviria, por ahora dejo el de carlos que es el de arriba -->
+        <!-- <div class="col-12 text-center" id="listados"></div> -->
 
-    <!-- El div de abajo lo puso ruben, ver si serviria, por ahora dejo el de carlos que es el de arriba -->
-    <!-- <div class="col-12 text-center" id="listados"></div> -->
+        <!-- Scripts JS -->
+        <script type="text/javascript" src="js/ajax.js"></script>
+        <script type="text/javascript" src="js/objetos.js"></script>
+        <script type="text/javascript" src="js/codigo.js"></script>
 
-
-    <!-- Scripts JS -->
-    <script type="text/javascript" src="js/ajax.js"></script>
-    <script type="text/javascript" src="js/objetos.js"></script>
-    <script type="text/javascript" src="js/codigo.js"></script>
-
-</body>
+    </body>
 
 </html>
