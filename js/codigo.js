@@ -136,6 +136,10 @@ async function mostrarFormularios(oEvento) {
 //Ocultar formularios
 function ocultarFormularios() {
     //Ocultar formularios reservas
+    frmAltaReserva.classList.add("d-none");
+    frmBuscarReserva.classList.add("d-none");
+    let frmEditarReserva = document.getElementById("frmEditarReserva");
+    frmEditarReserva.classList.add("d-none");
 
     //Ocultar formularios clientes
     frmAltaCliente.classList.add("d-none");
@@ -256,7 +260,10 @@ async function mostrarListadoReservas(parametros = []) {
     });
 
     document.querySelectorAll(".frmEditarReserva").forEach(form => {        
-        form.addEventListener("submit", mostrarFormularios);
+        form.addEventListener("submit", e => {
+            e.preventDefault()
+            mostrarFormularios(e)
+        });
     });
 }
 
@@ -299,6 +306,7 @@ function validarParametrosReserva(parametros) {
 
   return errores;
 }
+
 async function procesarAltaReserva(parametros) {    
     let errores = validarParametrosReserva(parametros);
 
@@ -330,6 +338,18 @@ async function procesarBorrarReserva(parametros) {
 }
 
 async function procesarEditarReserva(parametros) {
+    let errores = validarParametrosReserva(parametros);
+
+    if (errores.length > 0) {
+        let mensajeError = `
+        <br>
+        <div class="alert alert-danger">
+            <ul>${errores.map(e => `<li>${e}</li>`).join('')}</ul>
+        </div>`;
+        document.querySelector("#listados").innerHTML = mensajeError;
+        return { ok: false, errores };
+    }
+
     let reserva = new Reserva({...parametros, id_board: parametros["sel_id_board"], id_client: parametros["sel_id_client"]})
     let respuesta = await oEmpresa.editarReserva(reserva);
 
