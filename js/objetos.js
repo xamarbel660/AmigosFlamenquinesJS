@@ -190,8 +190,6 @@ class Empresa {
     return opciones;
   }
 
-  //Reservas
-
     //Reservas
     async obtenerReservas(parametros = []) {
         let respuesta = await peticionGET("get_reservas.php", parametros)
@@ -234,44 +232,48 @@ class Empresa {
         return respuesta;
     }
 
-    let respuesta = await peticionPOST("proceso_alta_cliente.php", datos);
+    //Cliente
+    async altaCliente(cliente) {
+        let datos = new FormData();
+        datos.append("cliente", JSON.stringify(cliente.toJSON()));
+        let respuesta = await peticionPOST("proceso_alta_cliente.php", datos);
 
-    return respuesta;
-  }
-
-  async listadoClientes() {
-    let listado = "";
-    let respuesta = await peticionGET("get_clientes.php", new FormData());
-
-    if (!respuesta.ok) {
-      listado = respuesta.mensaje;
-    } else {
-      listado = "<table class='table table-striped'>";
-      listado +=
-        "<thead><tr><th>ID</th><th>NOMBRE</th><th>EDAD</th><th>CATEGORIA</th><th>ES VIP</th><th>FECHA AÑADIDO</th></tr></thead>";
-      listado += "<tbody>";
-
-      for (let cliente of respuesta.datos) {
-        let es_vip = "No";
-        if (parseInt(cliente.is_vip) == 1) {
-          es_vip = "Si";
-        }
-
-        let fechaSinFormato = cliente.date_created_account.trim().split("-");
-        let fecha_anyadido = `${fechaSinFormato[2]}-${fechaSinFormato[1]}-${fechaSinFormato[0]}`;
-
-        listado += "<tr><td>" + cliente.id_client.trim() + "</td>";
-        listado += "<td>" + cliente.name.trim() + "</td>";
-        listado += "<td>" + cliente.age.trim() + "</td>";
-        listado += "<td>" + cliente.category_name.trim() + "</td>";
-        listado += "<td>" + es_vip + "</td>";
-        listado += "<td>" + fecha_anyadido + "</td></tr>";
-      }
-      listado += "</tbody></table>";
+        return respuesta;
     }
 
-    return listado;
-  }
+    async listadoClientes() {
+        let listado = "";
+        let respuesta = await peticionGET("get_clientes.php", new FormData());
+
+        if (!respuesta.ok) {
+        listado = respuesta.mensaje;
+        } else {
+        listado = "<table class='table table-striped'>";
+        listado +=
+            "<thead><tr><th>ID</th><th>NOMBRE</th><th>EDAD</th><th>CATEGORIA</th><th>ES VIP</th><th>FECHA AÑADIDO</th></tr></thead>";
+        listado += "<tbody>";
+
+        for (let cliente of respuesta.datos) {
+            let es_vip = "No";
+            if (parseInt(cliente.is_vip) == 1) {
+            es_vip = "Si";
+            }
+
+            let fechaSinFormato = cliente.date_created_account.trim().split("-");
+            let fecha_anyadido = `${fechaSinFormato[2]}-${fechaSinFormato[1]}-${fechaSinFormato[0]}`;
+
+            listado += "<tr><td>" + cliente.id_client.trim() + "</td>";
+            listado += "<td>" + cliente.name.trim() + "</td>";
+            listado += "<td>" + cliente.age.trim() + "</td>";
+            listado += "<td>" + cliente.category_name.trim() + "</td>";
+            listado += "<td>" + es_vip + "</td>";
+            listado += "<td>" + fecha_anyadido + "</td></tr>";
+        }
+        listado += "</tbody></table>";
+        }
+
+        return listado;
+    }
 
   //Pedidos
 }
