@@ -372,6 +372,7 @@ async function procesarEditarReserva(parametros) {
     return respuesta;
 }
 
+// Cargar options en los select de reserva
 async function cargarSelectClientes(selectId) {
     let selClient = document.getElementById(selectId);
 
