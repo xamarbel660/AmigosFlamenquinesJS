@@ -1,361 +1,400 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <!-- Enlaces de bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <!-- Links de los fonts de google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="css/estilos.css">
-    <!-- icono -->
-    <link rel="icon" type="image/png" href="assets/logo_restaurante.jpg">
-    <title>Amigos Flamenquines</title>
-</head>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <!-- Enlaces de bootstrap-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous">
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <script defer
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"></script>
+        <!-- Links de los fonts de google -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap"
+            rel="stylesheet" />
+        <link rel="stylesheet" href="css/estilos.css">
+        <!-- icono -->
+        <link rel="icon" type="image/png" href="assets/logo_restaurante.jpg">
+        <title>Amigos Flamenquines</title>
+    </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary mb-3">
-        <div class="container-fluid">
-            <a class="navbar-brand text-light" href="index.html">Amigos
-                Flamenquines</a>
-            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- Reservas -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Reservas
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Alta de
-                                    componentes</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand text-light" href="index.html">Amigos
+                    Flamenquines</a>
+                <button class="navbar-toggler bg-light" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"
+                    id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- Reservas -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light"
+                                href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Reservas
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Alta de
+                                        componentes</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
 
-                            <li><a class="dropdown-item" href="#">Buscar un
-                                    componente</a></li>
-                            <li><a class="dropdown-item" href="#">Listado de
-                                    componentes</a></li>
-                            <li><a class="dropdown-item" href="#">Listado de
-                                    componentes por
-                                    tipo</a></li>
-                            <li><a class="dropdown-item" href="#">Listado de
-                                    componentes
-                                    por precio</a></li>
-                        </ul>
-                    </li>
-                    <!-- Clientes -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Clientes
-                        </a>
-                        <ul class="dropdown-menu">
-                            <!-- Añadir cliente -->
-                            <li><a id="mnuAltaCliente" name="mnuAltaCliente" class="dropdown-item" href="#">Alta
-                                    cliente</a></li>
-                            <!-- Buscar cliente y poder editarlo -->
-                            <li><a id="mnuBuscarCliente" class="dropdown-item" href="#">Buscar
-                                    cliente</a></li>
+                                <li><a class="dropdown-item" href="#">Buscar un
+                                        componente</a></li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        componentes</a></li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        componentes por
+                                        tipo</a></li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        componentes
+                                        por precio</a></li>
+                            </ul>
+                        </li>
+                        <!-- Clientes -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light"
+                                href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Clientes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- Añadir cliente -->
+                                <li><a id="mnuAltaCliente" name="mnuAltaCliente"
+                                        class="dropdown-item" href="#">Alta
+                                        cliente</a></li>
+                                <!-- Buscar cliente y poder editarlo -->
+                                <li><a id="mnuBuscarCliente"
+                                        class="dropdown-item" href="#">Buscar
+                                        cliente</a></li>
 
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <!-- Listados -->
-                            <li><a id="mnuMostrarClientes" class="dropdown-item" href="#">Mostrar
-                                    clientes almacenados</a></li>
-                            <li><a id="mnuListadoParametrizadoClientes" class="dropdown-item" href="#">Listado
-                                    de
-                                    clientes parametrizado</a></li>
-                        </ul>
-                    </li>
-                    <!-- Pedidos -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Pedidos
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" id="mnuAltaPedido">Alta de
-                                    pedido</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar un
-                                    pedido</a></li>
-                            <li><a class="dropdown-item" href="#">Modificar
-                                    un pedido</a></li>
-                            <li><a class="dropdown-item" href="#">Borrar un
-                                    pedido</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Listado de
-                                    pedidos</a></li>
-                            <li><a class="dropdown-item" href="#">Listado de
-                                    pedidos por</a></li>
-                        </ul>
-                    </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <!-- Listados -->
+                                <li><a id="mnuMostrarClientes"
+                                        class="dropdown-item" href="#">Mostrar
+                                        clientes almacenados</a></li>
+                                <li><a id="mnuListadoParametrizadoClientes"
+                                        class="dropdown-item" href="#">Listado
+                                        de
+                                        clientes parametrizado</a></li>
+                            </ul>
+                        </li>
+                        <!-- Pedidos -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light"
+                                href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Pedidos
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"
+                                        id="mnuAltaPedido">Alta de
+                                        pedido</a></li>
+                                <li><a class="dropdown-item" href="#">Buscar un
+                                        pedido</a></li>
+                                <li><a class="dropdown-item" href="#">Modificar
+                                        un pedido</a></li>
+                                <li><a class="dropdown-item" href="#">Borrar un
+                                        pedido</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        pedidos</a></li>
+                                <li><a class="dropdown-item" href="#">Listado de
+                                        pedidos por</a></li>
+                            </ul>
+                        </li>
 
-                </ul>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Modal-->
+
+        <div class="modal" id="modal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="tituloModal">Titulo</h5>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body row justify-content-center">
+                        <img class="img-fluid col-8 " id="imagenModal" src="#">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-secondary"
+                            data-bs-dismiss="modal">Entendido</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
 
+        <!-- Formularios de la página-->
+        <div class="container" id="formularios">
 
-    <!-- Formularios de la página-->
-    <div class="container" id="formularios">
+            <div class="row">
 
-        <div class="row">
+                <!-- Formularios Reservas-->
 
-            <!-- Formularios Reservas-->
+                <!-- Fin Formularios Reservas-->
 
-            <!-- Fin Formularios Reservas-->
+                <!-- Formularios Clientes-->
 
-            <!-- Formularios Clientes-->
-
-            <!--Alta cliente-->
-            <form class="form-horizontal d-none" name="frmAltaCliente" id="frmAltaCliente">
-                <fieldset class="row ">
-                    <legend>Alta de cliente</legend>
-                    <!-- Nombre del cliente -->
-                    <div class="form-group col-12">
-                        <label class="col-xs-4 control-label" for="nombreCliente">Nombre: </label>
-                        <div class="col-xs-4">
-                            <input id="nombreCliente" name="nombreCliente"
-                                placeholder="Escribe aquí el nombre del cliente..." class="form-control input-md"
-                                type="text">
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-between my-4 ">
-                        <!-- Edad del cliente -->
-                        <div class="form-group col-3">
-                            <label class="col-xs-4 control-label" for="edadCliente">Edad: </label>
+                <!--Alta cliente-->
+                <form class="form-horizontal d-none" name="frmAltaCliente"
+                    id="frmAltaCliente">
+                    <fieldset class="row ">
+                        <legend>Alta de cliente</legend>
+                        <!-- Nombre del cliente -->
+                        <div class="form-group col-12">
+                            <label class="col-xs-4 control-label"
+                                for="nombreCliente">Nombre: </label>
                             <div class="col-xs-4">
-                                <input id="edadCliente" name="edadCliente" value="18" class="form-control input-md"
-                                    type="number" min="16" max="120">
+                                <input id="nombreCliente" name="nombreCliente"
+                                    placeholder="Escribe aquí el nombre del cliente..."
+                                    class="form-control input-md"
+                                    type="text">
                             </div>
                         </div>
 
-                        <!-- Radio VIP -->
-                        <div class="form-group col-3">
-                            <label for>¿Cliente VIP?</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radioVIP" id="radioVIPSi " value="1">
-                                <label class="form-check-label" for="radioVIPSi">
-                                    Si
-                                </label>
+                        <div class="row justify-content-between my-4 ">
+                            <!-- Edad del cliente -->
+                            <div class="form-group col-3">
+                                <label class="col-xs-4 control-label"
+                                    for="edadCliente">Edad: </label>
+                                <div class="col-xs-4">
+                                    <input id="edadCliente" name="edadCliente"
+                                        value="18" class="form-control input-md"
+                                        type="number" min="16" max="120">
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="radioVIP" id="radioVIPNo" value="0"
-                                    checked>
-                                <label class="form-check-label" for="radioVIPNo">
-                                    No
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarAltaCliente"></label>
-                        <div class="col-xs-4">
-                            <input type="submit" id="btnAceptarAltaCliente" name="btnAceptarAltaCliente"
-                                class="btn bg-secondary" value="Aceptar" />
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
 
-            <!-- Buscar Cliente-->
-            <form class="form-horizontal d-none" name="frmBuscarCliente" id="frmBuscarCliente">
-                <fieldset>
-                    <!-- Form Name -->
-                    <legend>Buscar un cliente</legend>
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="idClienteBuscar">Id del cliente: </label>
-                        <div class="col-xs-4">
-                            <input id="idClienteBuscar" name="idClienteBuscar" class="form-control input-md"
-                                type="number">
-                        </div>
-                    </div>
-
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarBuscarCliente"></label>
-                        <div class="col-xs-4">
-                            <input type="submit" id="btnAceptarBuscarCliente" name="btnAceptarBuscarCliente"
-                                class="btn bg-secondary" value="Aceptar" />
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-
-            <!-- Listado Parametrizado Clientes-->
-            <form class="form-horizontal d-none row" name="frmListadoParametrizadoClientes"
-                id="frmListadoParametrizadoClientes" method="get">
-                <fieldset>
-                    <!-- Form Name -->
-                    <legend>Listado Parametrizado de Clientes</legend>
-
-                    <div class="form-group col-12 mb-2">
-                        <label class="col-xs-4 control-label" for="nombreCliente">Nombre del cliente: </label>
-                        <div class="col-xs-4">
-                            <input id="nombreCliente" name="nombreCliente" class="form-control input-md" type="text"
-                                placeholder="Escribe aquí su nombre o parte de él...">
-                        </div>
-                    </div>
-
-                    <div class="form-group col-12 mb-2">
-                        <label class="col-xs-4 control-label" for="nombreCliente">Fecha añadido: </label>
-                        <div class="col-xs-4">
-                            <input id="fechaAnyadido" name="fechaAnyadido" class="form-control input-md" type="date">
-                        </div>
-                    </div>
-
-                    <div class="row col-12 mb-2">
-                        <div class="form-group col-6">
-                            <label class="col-xs-4 control-label" for="edadCliente">Edad del cliente: </label>
-                            <div class="col-xs-4">
-                                <input id="edadCliente" name="edadCliente" class="form-control input-md" type="number"
-                                    min="16" max="120">
-                            </div>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for>¿Cliente VIP?</label>
-                            <div class="col-xs-4">
-                                <select name="lstEsVip" id="lstEsVip" class="form-select"
+                            <!-- Categoria cliente -->
+                            <div class="form-group col-3">
+                                <label for="lstCategorias">Categoria del
+                                    cliente</label>
+                                <select class="form-select col-7 col-md-5"
+                                    name="lstCategorias" id="lstCategorias"
                                     aria-label="Default select example">
-                                    <option value="-1" selected>Elige una
-                                        opcion</option>
-                                    <option value="1">Si</option>
-                                    <option value="0">No</option>
+
                                 </select>
                             </div>
+
+                            <!-- Radio VIP -->
+                            <div class="form-group col-3">
+                                <label for="radioVIP">¿Cliente VIP?</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                        name="radioVIP" id="radioVIPSi "
+                                        value="1">
+                                    <label class="form-check-label"
+                                        for="radioVIPSi">
+                                        Si
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio"
+                                        name="radioVIP" id="radioVIPNo"
+                                        value="0"
+                                        checked>
+                                    <label class="form-check-label"
+                                        for="radioVIPNo">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarBuscarCliente"></label>
-                        <div class="col-xs-4">
-                            <input type="submit" id="btnAceptarListadoParametrizado"
-                                name="btnAceptarListadoParametrizado" class="btn bg-secondary" value="Aceptar" />
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarAltaCliente"></label>
+                            <div class="col-xs-4">
+                                <input type="button" id="btnAceptarAltaCliente"
+                                    name="btnAceptarAltaCliente"
+                                    class="btn bg-secondary" value="Aceptar" />
+                            </div>
                         </div>
-                    </div>
-                </fieldset>
-            </form>
+                    </fieldset>
+                </form>
 
+                <!-- Buscar Cliente-->
+                <form class="form-horizontal d-none" name="frmBuscarCliente"
+                    id="frmBuscarCliente">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <legend>Buscar un cliente</legend>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="idClienteBuscar">Id del cliente: </label>
+                            <div class="col-xs-4">
+                                <input id="idClienteBuscar"
+                                    name="idClienteBuscar"
+                                    class="form-control input-md"
+                                    type="number">
+                            </div>
+                        </div>
 
-            <!-- <div class="form-group col-12 mb-2">
-                <label class="col-xs-4 control-label" for="nombreCliente">Nombre del cliente: </label>
-                <div class="col-xs-4">
-                    <input id="nombreCliente" name="nombreCliente" class="form-control input-md" type="text"
-                        placeholder="Escribe aquí su nombre o parte de él...">
-                </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarBuscarCliente"></label>
+                            <div class="col-xs-4">
+                                <input type="submit"
+                                    id="btnAceptarBuscarCliente"
+                                    name="btnAceptarBuscarCliente"
+                                    class="btn bg-secondary" value="Aceptar" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- Listado Parametrizado Clientes-->
+                <form class="form-horizontal d-none row"
+                    name="frmListadoParametrizadoClientes"
+                    id="frmListadoParametrizadoClientes" method="get">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <legend>Listado Parametrizado de Clientes</legend>
+
+                        <div class="form-group col-12 mb-2">
+                            <label class="col-xs-4 control-label"
+                                for="nombreCliente">Nombre del cliente: </label>
+                            <div class="col-xs-4">
+                                <input id="nombreCliente" name="nombreCliente"
+                                    class="form-control input-md" type="text"
+                                    placeholder="Escribe aquí su nombre o parte de él...">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-12 mb-2">
+                            <label class="col-xs-4 control-label"
+                                for="nombreCliente">Fecha añadido: </label>
+                            <div class="col-xs-4">
+                                <input id="fechaAnyadido" name="fechaAnyadido"
+                                    class="form-control input-md" type="date">
+                            </div>
+                        </div>
+
+                        <div class="row col-12 mb-2">
+                            <div class="form-group col-6">
+                                <label class="col-xs-4 control-label"
+                                    for="edadCliente">Edad del cliente: </label>
+                                <div class="col-xs-4">
+                                    <input id="edadCliente" name="edadCliente"
+                                        class="form-control input-md"
+                                        type="number"
+                                        min="16" max="120">
+                                </div>
+                            </div>
+                            <div class="form-group col-6">
+                                <label for>¿Cliente VIP?</label>
+                                <div class="col-xs-4">
+                                    <select name="lstEsVip" id="lstEsVip"
+                                        class="form-select"
+                                        aria-label="Default select example">
+                                        <option value="-1" selected>Elige una
+                                            opcion</option>
+                                        <option value="1">Si</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarBuscarCliente"></label>
+                            <div class="col-xs-4">
+                                <input type="submit"
+                                    id="btnAceptarListadoParametrizado"
+                                    name="btnAceptarListadoParametrizado"
+                                    class="btn bg-secondary" value="Aceptar" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <!-- Fin Formularios Clientes-->
+
+                <!-- Formularios Pedidos-->
+                <!-- Alta Pedido -->
+                <form class="form-horizontal d-none" name="frmAltaPedido"
+                    id="frmAltaPedido">
+                    <fieldset>
+                        <!-- Form Name -->
+                        <legend>Alta de tipo de un pedido</legend>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="txtTipo">Tipo</label>
+                            <div class="col-xs-4">
+                                <input id="txtTipo" name="txtTipo"
+                                    placeholder="Nombre del tipo"
+                                    class="form-control input-md" type="text">
+                            </div>
+                        </div>
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="txtDescripcion">Descripcion</label>
+                            <div class="col-xs-4">
+                                <input id="txtDescripcion" name="txtDescripcion"
+                                    placeholder="Descripción del tipo"
+                                    class="form-control input-md" type="text">
+                            </div>
+                        </div>
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-xs-4 control-label"
+                                for="btnAceptarAltaTipo"></label>
+                            <div class="col-xs-4">
+                                <input type="button" id="btnAceptarAltaTipo"
+                                    name="btnAceptarAltaTipo"
+                                    class="btn btn-primary" value="Aceptar" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <!-- Fin Formularios Pedidos-->
             </div>
 
-            <div class="form-group col-12 mb-2">
-                <label class="col-xs-4 control-label" for="fechaAnyadido">Fecha añadido: </label>
-                <div class="col-xs-4">
-                    <input id="fechaAnyadido" name="fechaAnyadido" class="form-control input-md" type="date">
-                </div>
-            </div>
-
-            <div class="row col-12 mb-2">
-                <div class="form-group col-6">
-                    <label class="col-xs-4 control-label" for="edadCliente">Edad del cliente: </label>
-                    <div class="col-xs-4">
-                        <input id="edadCliente" name="edadCliente" class="form-control input-md" type="number" min="16"
-                            max="120">
-                    </div>
-                </div>
-                <div class="form-group col-6">
-                    <label for>¿Cliente VIP?</label>
-                    <div class="col-xs-4">
-                        <select name="lstEsVip" id="lstEsVip" class="form-select" aria-label="Default select example">
-                            <option value="-1" selected>Elige una
-                                opcion</option>
-                            <option value="1">Si</option>
-                            <option value="0">No</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <label class="col-xs-4 control-label" for="btnAceptarBuscarCliente"></label>
-                <div class="col-xs-4">
-                    <input type="submit" id="btnAceptarListadoParametrizado" name="btnAceptarListadoParametrizado"
-                        class="btn bg-secondary" value="Aceptar" />
-                </div>
-            </div>
-            </fieldset>
-            </form> -->
-
-            <!-- Fin Formularios Clientes-->
-
-            <!-- Formularios Pedidos-->
-            <!-- Alta Pedido -->
-            <form class="form-horizontal d-none" name="frmAltaPedido" id="frmAltaPedido">
-                <fieldset>
-                    <!-- Form Name -->
-                    <legend>Alta de tipo de un pedido</legend>
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="txtTipo">Tipo</label>
-                        <div class="col-xs-4">
-                            <input id="txtTipo" name="txtTipo" placeholder="Nombre del tipo"
-                                class="form-control input-md" type="text">
-                        </div>
-                    </div>
-                    <!-- Text input-->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="txtDescripcion">Descripcion</label>
-                        <div class="col-xs-4">
-                            <input id="txtDescripcion" name="txtDescripcion" placeholder="Descripción del tipo"
-                                class="form-control input-md" type="text">
-                        </div>
-                    </div>
-                    <!-- Button -->
-                    <div class="form-group">
-                        <label class="col-xs-4 control-label" for="btnAceptarAltaTipo"></label>
-                        <div class="col-xs-4">
-                            <input type="button" id="btnAceptarAltaTipo" name="btnAceptarAltaTipo"
-                                class="btn btn-primary" value="Aceptar" />
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
-            <!-- Fin Formularios Pedidos-->
         </div>
 
-    </div>
+        <div class="container" id="resultadoBusqueda"></div>
+        <div class="container" id="listados"></div>
 
-    <div class="container" id="resultadoBusqueda"></div>
-    <div class="container" id="listados"></div>
+        <!-- El div de abajo lo puso ruben, ver si serviria, por ahora dejo el de carlos que es el de arriba -->
+        <!-- <div class="col-12 text-center" id="listados"></div> -->
 
-    <!-- El div de abajo lo puso ruben, ver si serviria, por ahora dejo el de carlos que es el de arriba -->
-    <!-- <div class="col-12 text-center" id="listados"></div> -->
+        <!-- Scripts JS -->
+        <script type="text/javascript" src="js/ajax.js"></script>
+        <script type="text/javascript" src="js/objetos.js"></script>
+        <script type="text/javascript" src="js/codigo.js"></script>
 
-
-    <!-- Scripts JS -->
-    <script type="text/javascript" src="js/ajax.js"></script>
-    <script type="text/javascript" src="js/objetos.js"></script>
-    <script type="text/javascript" src="js/codigo.js"></script>
-
-</body>
+    </body>
 
 </html>
