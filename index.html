@@ -33,30 +33,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- Reservas -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Reservas
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Alta de
-                                    componentes</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+							aria-expanded="false">
+							Reservas
+						</a>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" id="mnuAltaReserva" name="mnuAltaReserva" href="#">Alta de reserva</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
 
-                            <li><a class="dropdown-item" href="#">Buscar un
-                                    componente</a></li>
-                            <li><a class="dropdown-item" href="#">Listado de
-                                    componentes</a></li>
-                            <li><a class="dropdown-item" href="#">Listado de
-                                    componentes por
-                                    tipo</a></li>
-                            <li><a class="dropdown-item" href="#">Listado de
-                                    componentes
-                                    por precio</a></li>
-                        </ul>
-                    </li>
+							<li><a class="dropdown-item" id="mnuBuscarReserva" name="mnuBuscarReserva" href="#">Buscar reservas</a></li>
+							<li><a class="dropdown-item" id="mnuListadoReserva" name="mnuListadoReserva" href="#">Listado de reservas</a></li>
+						</ul>
+					</li>
                     <!-- Clientes -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
@@ -119,6 +110,210 @@
         <div class="row">
 
             <!-- Formularios Reservas-->
+            <form class="form-horizontal d-none" name="frmBuscarReserva" id="frmBuscarReserva">
+                <fieldset class="row ">
+                    <legend>Buscar reservas</legend>
+
+                    <div class="row justify-content-between my-4">
+                        <!-- Cliente -->
+                        <div class="form-group col-12">
+                            <label class="col-xs-4 control-label" for="selClient">Cliente: </label>
+                            <div class="col-xs-4">
+                                <select id="selClient" name="selClient" class="form-control input-md">
+                                    <option value="">-- Sin filtro --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fecha de la reserva -->
+                    <div class="form-group col-12">
+                        <label class="col-xs-4 control-label" for="inpDate">Fecha: </label>
+                        <div class="col-xs-4">
+                            <input id="inpDate" name="inpDate" placeholder="Fecha de la reserva"
+                                class="form-control input-md" type="date">
+                        </div>
+                    </div>
+
+                    <!-- Fecha de la reserva -->
+                    <div class="form-group col-12">
+                        <label class="col-xs-4 control-label" for="inpTime">Hora: </label>
+                        <div class="col-xs-4">
+                            <input id="inpTime" name="inpTime" placeholder="Hora de la reserva"
+                                class="form-control input-md" type="time">
+                        </div>
+                    </div>
+                    
+                    <div class="row justify-content-between my-4">
+                        <!-- Número de invitados de la reserva -->
+                        <div class="form-group col-3">
+                            <label class="col-xs-4 control-label" for="numClients">Número de invitados: </label>
+                            <div class="col-xs-4">
+                                <input id="numClients" name="numClients" class="form-control input-md"
+                                    type="number" min="1">
+                            </div>
+                        </div>
+                        <!-- Es de noche la reserva? -->
+                        <div class="form-group col-3">
+                            <label class="col-xs-4 control-label" for="selNight">¿Por la noche?: </label>
+                            <div class="col-xs-4">
+                                <select id="selNight" name="selNight" class="form-control input-md">
+                                    <option value="">-- Sin filtro --</option>
+                                    <option value="1">Solo de noche</option>
+                                    <option value="0">Solo de día</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mesa -->
+                    <div class="form-group col-12">
+                        <label class="col-xs-4 control-label" for="selBoard">Mesa: </label>
+                        <div class="col-xs-4">
+                            <select id="selBoard" name="selBoard" class="form-control input-md">
+                                <option value="">-- Selecciona una mesa --</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label" for="btnAceptarBuscarReserva"></label>
+                        <div class="col-xs-4">
+                            <input type="submit" id="btnAceptarBuscarReserva"
+                                class="btn bg-secondary" value="Aceptar" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <form class="form-horizontal d-none" name="frmAltaReserva" id="frmAltaReserva">
+                <fieldset class="row ">
+                    <legend>Alta de reserva</legend>
+
+                    <div class="row justify-content-between my-4">
+                        <!-- Cliente -->
+                        <div class="form-group col-12">
+                            <label class="col-xs-4 control-label" for="id_client">Cliente: </label>
+                            <div class="col-xs-4">
+                                <select id="id_client" name="id_client" class="form-control input-md" required>
+                                    <option value="">-- Selecciona un cliente --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fecha de la reserva -->
+                    <div class="form-group col-12">
+                        <label class="col-xs-4 control-label" for="reservation_date">Fecha: </label>
+                        <div class="col-xs-4">
+                            <input id="reservation_date" name="reservation_date" placeholder="Fecha de la reserva"
+                                class="form-control input-md" type="datetime-local" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row justify-content-between my-4">
+                        <!-- Número de invitados de la reserva -->
+                        <div class="form-group col-3">
+                            <label class="col-xs-4 control-label" for="number_of_guests">Número de invitados: </label>
+                            <div class="col-xs-4">
+                                <input id="number_of_guests" name="number_of_guests" value="1" class="form-control input-md"
+                                    type="number" min="1" required>
+                            </div>
+                        </div>
+
+                        <!-- Comentarios adicionales -->
+                        <div class="form-group col-6">
+                            <label class="col-xs-4 control-label" for="comment">Comentarios: </label>
+                            <div class="col-xs-4">
+                                <input id="comment" name="comment" class="form-control input-md"
+                                    type="text" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mesa -->
+                    <div class="form-group col-12">
+                        <label class="col-xs-4 control-label" for="id_board">Mesa: </label>
+                        <div class="col-xs-4">
+                            <select id="id_board" name="id_board" class="form-control input-md" required>
+                                <option value="">-- Selecciona una mesa --</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label" for="btnAceptarAltaReserva"></label>
+                        <div class="col-xs-4">
+                            <input type="submit" id="btnAceptarAltaReserva" name="btnAceptarAltaReserva"
+                                class="btn bg-secondary" value="Aceptar" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <form class="form-horizontal d-none" name="frmEditarReserva" id="frmEditarReserva">
+                <fieldset class="row ">
+                    <legend>Editar reserva</legend>
+
+                    <div class="row justify-content-between my-4">
+                        <!-- Cliente -->
+                        <div class="form-group col-12">
+                            <label class="col-xs-4 control-label" for="sel_id_client">Cliente: </label>
+                            <div class="col-xs-4">
+                                <select id="sel_id_client" name="sel_id_client" class="form-control input-md" required>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fecha de la reserva -->
+                    <div class="form-group col-12">
+                        <label class="col-xs-4 control-label" for="reservation_date">Fecha: </label>
+                        <div class="col-xs-4">
+                            <input id="reservation_date" name="reservation_date" placeholder="Fecha de la reserva"
+                                class="form-control input-md" type="datetime-local"  required>
+                        </div>
+                    </div>
+                    
+                    <div class="row justify-content-between my-4">
+                        <!-- Número de invitados de la reserva -->
+                        <div class="form-group col-3">
+                            <label class="col-xs-4 control-label" for="number_of_guests">Número de invitados: </label>
+                            <div class="col-xs-4">
+                                <input id="number_of_guests" name="number_of_guests" class="form-control input-md"
+                                    type="number" min="1" required>
+                            </div>
+                        </div>
+
+                        <!-- Comentarios adicionales -->
+                        <div class="form-group col-6">
+                            <label class="col-xs-4 control-label" for="comment">Comentarios: </label>
+                            <div class="col-xs-4">
+                                <input id="comment" name="comment" class="form-control input-md"
+                                    type="text" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mesa -->
+                    <div class="form-group col-12">
+                        <label class="col-xs-4 control-label" for="sel_id_board">Mesa: </label>
+                        <div class="col-xs-4">
+                            <select id="sel_id_board" name="sel_id_board" class="form-control input-md" required>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-xs-4 control-label" for="btnAceptarEditarReserva"></label>
+                        <div class="col-xs-4">
+                            <input type="hidden" name="id_reservation" required>
+                            <input type="submit" id="btnAceptarEditarReserva" name="btnAceptarEditarReserva"
+                                class="btn bg-secondary" value="Editar" />
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
 
             <!-- Fin Formularios Reservas-->
 

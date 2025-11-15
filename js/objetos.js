@@ -1,4 +1,76 @@
 "use strict";
+class Reserva {
+    #id_reservation;
+    #reservation_date;
+    #number_of_guests;
+    #is_night_reservation;
+    #comment;
+    #id_board;
+    #id_client;
+
+    constructor({id_reservation, reservation_date, number_of_guests, is_night_reservation, comment, id_board, id_client}) {
+        this.#id_reservation = id_reservation;
+        this.#reservation_date = reservation_date;
+        this.#number_of_guests = number_of_guests;
+        this.#is_night_reservation = is_night_reservation;
+        this.#comment = comment;
+        this.#id_board = id_board;
+        this.#id_client = id_client;
+    }
+
+    get id_reservation() {
+        return this.#id_reservation;
+    }
+    get reservation_date() {
+        return this.#reservation_date;
+    }
+    get number_of_guests() {
+        return this.#number_of_guests;
+    }
+    get is_night_reservation() {
+        return this.#is_night_reservation;
+    }
+    get comment() {
+        return this.#comment;
+    }
+    get id_board() {
+        return this.#id_board;
+    }
+    get id_client() {
+        return this.#id_client;
+    }
+
+    set reservation_date(reservation_date) {
+        this.#reservation_date = reservation_date;
+    }
+    set number_of_guests(number_of_guests) {
+        this.#number_of_guests = number_of_guests;
+    }
+    set is_night_reservation(is_night_reservation) {
+        this.#is_night_reservation = is_night_reservation;
+    }
+    set comment(comment) {
+        this.#comment = comment;
+    }
+    set id_board(id_board) {
+        this.#id_board = id_board;
+    }
+    set id_client(id_client) {
+        this.#id_client = id_client;
+    }
+
+    toJSON() {
+        return {
+            id_reservation: this.id_reservation,
+            reservation_date: this.reservation_date,
+            number_of_guests: this.number_of_guests,
+            is_night_reservation: this.is_night_reservation,
+            comment: this.comment,
+            id_board: this.id_board,
+            id_client: this.id_client
+        }
+    }
+}
 
 class Cliente {
     #id_client;
@@ -94,6 +166,46 @@ class Empresa {
     // }
 
     //Reservas
+    async obtenerReservas(parametros = []) {
+        let respuesta = await peticionGET("get_reservas.php", parametros)
+        return respuesta;
+    }
+
+    async altaReserva(reserva) {
+        let datos = new FormData();
+        datos.append("reserva", JSON.stringify(reserva.toJSON()));
+
+        let respuesta = await peticionPOST("alta_reserva.php", datos);
+
+        return respuesta;
+    }
+
+    async borrarReserva(id_reserva) {
+        let datos = new FormData();
+        datos.append("id_reserva", id_reserva);
+
+        let respuesta = await peticionPOST("borrar_reserva.php", datos);
+
+        return respuesta;
+    }
+
+    async editarReserva(reserva) {
+        let datos = new FormData();
+        datos.append("reserva", JSON.stringify(reserva.toJSON()));
+
+        let respuesta = await peticionPOST("editar_reserva.php", datos);
+
+        return respuesta;
+    }
+
+    async obtenerClientes() {
+        let respuesta = await peticionGET("get_clientes.php", new FormData())
+        return respuesta;
+    }
+    async obtenerMesas() {
+        let respuesta = await peticionGET("get_mesas.php", new FormData())
+        return respuesta;
+    }
 
 
     //Clientes
