@@ -301,6 +301,30 @@ class Empresa {
     }
 
     //Cliente
+    async editarCliente(clienteCambios){
+        let datos = new FormData();
+        datos.append("cliente", JSON.stringify(clienteCambios.toJSON()));
+        let respuesta = await peticionPOST("proceso_editar_cliente.php", datos);
+
+        return respuesta;
+    }
+
+    async borrarCliente(idCliente){
+        let datos = new FormData();
+        datos.append("idClienteBorrar", idCliente);
+        let respuesta = await peticionPOST("proceso_borrar_cliente.php", datos);
+
+        return respuesta;
+    }
+
+    async buscarClienteId(idClienteBuscar){
+        let datos = new FormData();
+        datos.append("idClienteBuscar", idClienteBuscar);
+        let respuesta = await peticionGET("proceso_buscar_cliente_id.php", datos);
+
+        return respuesta;
+    }
+
     async altaCliente(cliente) {
         let datos = new FormData();
         datos.append("cliente", JSON.stringify(cliente.toJSON()));
