@@ -486,7 +486,7 @@
 
         <!-- Listado Parametrizado Clientes-->
         <form class="form-horizontal d-none row" name="frmListadoParametrizadoClientes"
-            id="frmListadoParametrizadoClientes" method="get">
+            id="frmListadoParametrizadoClientes">
             <fieldset>
                 <!-- Form Name -->
                 <legend>Listado Parametrizado de Clientes</legend>
@@ -507,14 +507,25 @@
                 </div>
 
                 <div class="row col-12 mb-2">
-                    <div class="form-group col-6">
+                    <div class="form-group col-4">
                         <label class="col-xs-4 control-label" for="edadCliente">Edad del cliente: </label>
                         <div class="col-xs-4">
                             <input id="edadCliente" name="edadCliente" class="form-control input-md" type="number"
                                 min="16" max="120">
                         </div>
                     </div>
-                    <div class="form-group col-6">
+
+                    <!-- Categoria cliente -->
+                    <div class="form-group col-4">
+                        <label for="lstCategorias">Categoria del
+                            cliente</label>
+                        <select class="form-select col-7 col-md-5" name="lstCategorias" id="lstCategorias"
+                            aria-label="Default select example">
+                            
+                        </select>
+                    </div>
+
+                    <div class="form-group col-4">
                         <label for>¿Cliente VIP?</label>
                         <div class="col-xs-4">
                             <select name="lstEsVip" id="lstEsVip" class="form-select"
@@ -530,9 +541,9 @@
 
                 <!-- Button -->
                 <div class="form-group">
-                    <label class="col-xs-4 control-label" for="btnAceptarBuscarCliente"></label>
+                    <label class="col-xs-4 control-label" for="btnAceptarListadoParametrizadoClientes"></label>
                     <div class="col-xs-4">
-                        <input type="button" id="btnAceptarListadoParametrizado" name="btnAceptarListadoParametrizado"
+                        <input type="button" id="btnAceptarListadoParametrizadoClientes" name="btnAceptarListadoParametrizadoClientes"
                             class="btn bg-secondary" value="Aceptar" />
                     </div>
                 </div>

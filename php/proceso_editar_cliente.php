@@ -11,4 +11,4 @@ is_vip = ".$clienteCambios["is_vip"]."
 WHERE id_client = ".$clienteCambios["id_client"].";" ;
 $resultado = mysqli_query($conexion, $sql);
 
-responder($datos, true, "Cliente con ID:$idClienteBorrar editado.", $conexion);
+responder($datos, true, "Cliente con ID:".$clienteCambios["id_client"]." editado.", $conexion);

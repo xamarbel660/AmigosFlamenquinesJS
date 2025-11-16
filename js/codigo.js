@@ -84,6 +84,12 @@ function registrarEventos() {
   document
     .querySelector("#btnAceptarEditarCliente")
     .addEventListener("click", procesarEditarCliente);
+
+  document
+    .querySelector("#btnAceptarListadoParametrizadoClientes")
+    .addEventListener("click", procesarListadoClientesParametrizado);
+
+    
   // Botones formularios Pedidos
   document
     .querySelector("#btnAceptarAltaPedido")
@@ -183,6 +189,11 @@ function ocultarFormularios() {
   frmBuscarCliente.classList.add("d-none");
   frmBuscarCliente.idClienteBuscar.value = "";
   frmListadoParametrizadoClientes.classList.add("d-none");
+  frmListadoParametrizadoClientes.nombreCliente.value = "";
+  frmListadoParametrizadoClientes.lstCategorias.value = -1 ;
+  frmListadoParametrizadoClientes.lstEsVip.value = -1 ;
+  frmListadoParametrizadoClientes.fechaAnyadido.value = "";
+  frmListadoParametrizadoClientes.edadCliente.value = "" ;
   //Ocultar formularios pedidos
   frmAltaPedido.classList.add("d-none");
   frmModificarPedido.classList.add("d-none");
@@ -202,6 +213,7 @@ async function actualizarDesplegablesCategoria() {
   let optCategorias = await oEmpresa.opcionesCategoria();
   frmAltaCliente.lstCategorias.innerHTML = optCategorias;
   frmEditarCliente.lstCategorias.innerHTML = optCategorias;
+  frmListadoParametrizadoClientes.lstCategorias.innerHTML = "<option value='-1' selected>Elige una categoria</option>"+ optCategorias;
 }
 
 //Llamar modales
@@ -431,7 +443,6 @@ async function cargarSelectMesas(selectId) {
 
 //Funciones clientes
 
-async function borrarCliente(idCliente) {}
 async function mostrarListadoClientes() {
   let tabla = await oEmpresa.listadoClientes();
   document.querySelector("#listados").innerHTML = tabla;
@@ -610,7 +621,54 @@ async function procesarEditarCliente() {
   ocultarFormularios();
 }
 
-async function procesarListadoClientesParametrizado() {}
+async function procesarListadoClientesParametrizado() {
+    let nameCli = frmListadoParametrizadoClientes.nombreCliente.value;
+    let fechaAny = frmListadoParametrizadoClientes.fechaAnyadido.value;
+    let ageCli = frmListadoParametrizadoClientes.edadCliente.value;
+    let categoriaCli = frmListadoParametrizadoClientes.lstCategorias.value;
+    let esVipCli = frmListadoParametrizadoClientes.lstEsVip.value;
+
+    let cliParam = new Cliente(null,fechaAny, ageCli, esVipCli, nameCli, categoriaCli)
+
+    let respuesta = await oEmpresa.listadoParametrizadoClientes(cliParam);
+
+    if (respuesta.datos.length == 0) {
+    llamarModalError(respuesta.mensaje);
+  } else {
+    let tabla =
+      "<table id='listadoClientesParamResultado' name='listadoClientesParamResultado' class='table table-striped text-center align-middle mt-3'>";
+    tabla +=
+      "<thead><tr><th>ID</th><th>NOMBRE</th><th>EDAD</th><th>CATEGORIA</th><th>ES VIP</th><th>FECHA AÑADIDO</th></tr></thead>";
+    tabla += "<tbody>";
+    for (const registro of respuesta.datos) {
+      let esVip = "No";
+      if (registro.is_vip == 1) {
+        esVip = "Si";
+      }
+      let fechaAhoraSinMod = registro.date_created_account;
+      let fechaAhoraMod = fechaAhoraSinMod.split("-").reverse().join("-");
+
+      tabla += "<tr>";
+
+      tabla += "<td>" + registro.id_client + "</td>";
+      tabla += "<td>" + registro.name + "</td>";
+      tabla += "<td>" + registro.age + "</td>";
+      tabla += "<td>" + registro.category_name + "</td>";
+      tabla += "<td>" + esVip + "</td>";
+      tabla += "<td>" + fechaAhoraMod + "</td>";
+
+      tabla += "</tr>";
+    }
+
+    tabla += "</tbody>";
+    tabla += "</table>";
+
+    document.querySelector("#listados").innerHTML = tabla;
+
+
+
+  }
+}
 
 //Funciones pedidos
 // Proceso para dar de alta un pedido

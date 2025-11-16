@@ -301,6 +301,15 @@ class Empresa {
     }
 
     //Cliente
+
+    async listadoParametrizadoClientes(cliParam){
+        let datos = new FormData();
+        datos.append("cliente", JSON.stringify(cliParam.toJSON()));
+        let respuesta = await peticionGET("proceso_listado_parametrizado_clientes.php", datos);
+
+        return respuesta;
+    }
+
     async editarCliente(clienteCambios){
         let datos = new FormData();
         datos.append("cliente", JSON.stringify(clienteCambios.toJSON()));
