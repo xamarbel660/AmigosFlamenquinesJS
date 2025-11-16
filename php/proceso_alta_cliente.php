@@ -23,9 +23,9 @@ if (mysqli_errno($conexion) != 0) {
     $numerror = mysqli_errno($conexion);
     $descrerror = mysqli_error($conexion);
     // Prototipo responder($datos,$error,$mensaje,$conexion)
-    responder(null, true, "Se ha producido un error número $numerror que corresponde a: $descrerror <br>", $conexion);
+    responder(null, false, "Se ha producido un error número $numerror que corresponde a: $descrerror <br>", $conexion);
 } else {
     // Prototipo responder($datos,$error,$mensaje,$conexion)
-    responder(null, false, "Se ha dado de alta al cliente", $conexion); 
+    responder(null, true, "Se ha dado de alta al cliente", $conexion); 
 }
 ?>
