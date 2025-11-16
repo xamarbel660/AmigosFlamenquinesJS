@@ -20,10 +20,11 @@ try {
     // Obtener conexión a la BBDD (usa la configuración centralizada)
     $conexion = obtenerConexion();
 
-    if (isset($_POST['idPlato'])) {
-        $idPlato = json_decode($_POST['idPlato']);
+    if (isset($_GET['idPlato'])) {
+        $idPlato = $_GET['idPlato'];
         // Consulta simple — en este caso no hay parámetros externos
-        $sql = "SELECT * FROM plate WHERE id_plate = ".$idPlato.";";
+        $sql = "SELECT * FROM `plate` WHERE `id_plate` = ".$idPlato.";";
+
         $resultado = $conexion->query($sql);
 
         // Recolectamos las filas en un array asociativo para serializar a JSON
@@ -38,6 +39,7 @@ try {
     } else {
         // Consulta simple — en este caso no hay parámetros externos
         $sql = "SELECT * FROM plate;";
+
         $resultado = $conexion->query($sql);
 
         // Recolectamos las filas en un array asociativo para serializar a JSON

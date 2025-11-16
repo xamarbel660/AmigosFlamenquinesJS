@@ -88,7 +88,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#" id="mnuAltaPedido">Alta de
                                     pedido</a></li>
-                            <li><a class="dropdown-item" href="#">Buscar un
+                            <li><a class="dropdown-item" href="#" id="mnuBuscarPedido">Buscar un
                                     pedido</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -447,7 +447,7 @@
                     </div>
 
                     <div class="row col-6 mb-2">
-                         <label for="lstCategorias">Categoria del
+                        <label for="lstCategorias">Categoria del
                             cliente:</label>
                         <select class="form-select col-7 col-md-5" name="lstCategorias" id="lstCategorias"
                             aria-label="Default select example">
@@ -455,7 +455,7 @@
                         </select>
                     </div>
 
-                   
+
 
                     <!-- Radio VIP -->
                     <div class="form-group col-3">
@@ -578,15 +578,15 @@
 
                 <!-- Comentario Pedido -->
                 <div class="row mb-3">
-                    <label class="col-xs-4 control-label" for="textAreaComentarioAltaPedido">Comentario del
+                    <label class="col-xs-4 control-label" for="textAreaAltaPedido">Comentario del
                         pedido:</label>
                     <div class="col-xs-4">
-                        <textarea name="textAreaComentarioAltaPedido" id="textAreaComentarioAltaPedido"
-                            placeholder="Comentario" cols="60"></textarea>
+                        <textarea name="textAreaAltaPedido" id="textAreaAltaPedido"
+                            placeholder="Comentario de pedido" cols="60"></textarea>
                     </div>
                 </div>
 
-                <!-- Lista Platos -->
+                <!-- Platos para añadir el pedido -->
                 <div class="row mb-3">
                     <label class="col-12 control-label" for="lstPlatosAltaPedido">Platos:</label>
                     <div class="col-12 input-group mb-3">
@@ -737,42 +737,24 @@
         <form class="form-horizontal d-none" name="frmBuscarPedido" id="frmBuscarPedido">
             <fieldset>
                 <!-- Form Name -->
-                <legend>Listado Parametrizado de Pedidos</legend>
+                <legend>Buscar Pedido</legend>
 
                 <div class="form-group col-12 mb-2">
-                    <label class="col-xs-4 control-label" for="lstClientesListadoPedidosParametrizado">Cliente:
+                    <label class="col-xs-4 control-label" for="lstClientesBuscarPedidos">Cliente:
                     </label>
                     <div class="col-xs-4">
-                        <select class="form-select" name="lstClientesListadoPedidosParametrizado"
-                            id="lstClientesListadoPedidosParametrizado">
+                        <select class="form-select" name="lstClientesBuscarPedidos" id="lstClientesBuscarPedidos">
 
                         </select>
                     </div>
-                </div>
-
-                <!-- Estado -->
-                <label class="col-xs-4 control-label" for="estado">Estado del pedido</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="estado"
-                        id="finalizadoListadoPedidosParametrizado">
-                    <label class="form-check-label" for="finalizado">
-                        Finalizado
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="estado"
-                        id="enPreparacionListadoPedidosParametrizado">
-                    <label class="form-check-label" for="en_preparacion">
-                        En preparación
-                    </label>
                 </div>
 
                 <!-- Boton Aceptar -->
                 <div class="form-group">
                     <label class="col-xs-4 control-label" for="btnAceptarBuscarPedidos"></label>
                     <div class="col-xs-4">
-                        <input type="button" id="btnAceptarBuscarPedidos"
-                            name="btnAceptarBuscarPedidos" class="btn bg-secondary" value="Aceptar" />
+                        <input type="button" id="btnAceptarBuscarPedidos" name="btnAceptarBuscarPedidos"
+                            class="btn bg-secondary" value="Aceptar" />
                     </div>
                 </div>
 
@@ -808,6 +790,20 @@
                     <label class="form-check-label" for="en_preparacion">En preparación</label>
                 </div>
 
+                <!-- Rango de precios -->
+                <div class="mt-2">
+                    <label class="col-xs-4 control-label" for="inpPrecio">Rango de precios</label>
+                    <div class="col-xs-4">
+                        <label for="">Precio min</label>
+                        <input type="number" name="inpPrecioMin" id="inpPrecioMin" placeholder="0" min="0"
+                            step="0.5"></input>
+                        <br>
+                        <label for="">Precio max</label>
+                        <input type="number" name="inpPrecioMax" id="inpPrecioMax" placeholder="700" max="700"
+                            step="0.5"></input>
+                    </div>
+                </div>
+
                 <!-- Boton Aceptar -->
                 <div class="form-group">
                     <label class="col-xs-4 control-label" for="btnAceptarListadoPedidosParametrizado"></label>
@@ -819,7 +815,6 @@
 
             </fieldset>
         </form>
-
 
         <!-- Fin Formularios Pedidos-->
     </div>

@@ -318,7 +318,7 @@ class Empresa {
         return respuesta;
     }
 
-    async borrarCliente(idCliente){
+    async borrarCliente(idCliente) {
         let datos = new FormData();
         datos.append("idClienteBorrar", idCliente);
         let respuesta = await peticionPOST("proceso_borrar_cliente.php", datos);
@@ -326,7 +326,7 @@ class Empresa {
         return respuesta;
     }
 
-    async buscarClienteId(idClienteBuscar){
+    async buscarClienteId(idClienteBuscar) {
         let datos = new FormData();
         datos.append("idClienteBuscar", idClienteBuscar);
         let respuesta = await peticionGET("proceso_buscar_cliente_id.php", datos);
@@ -378,6 +378,17 @@ class Empresa {
 
 
     //Pedidos
+    async altaPedido(oPedido,platosSeleccionadosData) {
+        let datos = new FormData();
+
+        datos.append("pedido", JSON.stringify(oPedido));
+        datos.append("platosDelPedido", JSON.stringify(platosSeleccionadosData));
+
+        let respuesta = await peticionPOST("proceso_alta_pedido.php", datos);
+
+        return respuesta;
+    }
+
     async borradoPedido(idPedido) {
         let datos = new FormData();
         datos.append("idPedido", idPedido);
@@ -408,7 +419,7 @@ class Empresa {
         return respuesta;
     }
 
-    async listadoPedidos(idCliente, estado) {
+    async listadoPedidos(idCliente, estado, precioMin, precioMax) {
         let datos = new FormData();
 
         if (idCliente) {
@@ -419,14 +430,21 @@ class Empresa {
             estado = 1
             datos.append("estado", estado);
         }
-        
+
         if (estado == "preparandose") {
             estado = 0
             datos.append("estado", estado);
         }
 
-        let respuesta = await peticionGET("get_pedidos.php", datos);
+        if (precioMin) {
+            datos.append("precioMin", precioMin);
+        }
 
+        if (precioMax) {
+            datos.append("precioMax", precioMax);
+        }
+
+        let respuesta = await peticionGET("get_pedidos.php", datos);
         return respuesta;
     }
 }

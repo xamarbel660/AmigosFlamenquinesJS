@@ -5,7 +5,7 @@ try {
     // Obtener conexión a la BBDD (usa la configuración centralizada)
     $conexion = obtenerConexion();
 
-    if (isset($_GET['idCliente']) || isset($_GET['estado'])) {
+    if (isset($_GET['idCliente']) || isset($_GET['estado']) || isset($_GET['precioMin']) || isset($_GET['precioMax'])) {
         $sql = "SELECT * FROM client_order o, client c WHERE o.id_client = c.id_client";
 
         if (isset($_GET['idCliente'])) {
@@ -16,6 +16,19 @@ try {
         if (isset($_GET['estado'])) {
             $estado = json_decode($_GET['estado']);
             $sql .= " AND is_completed = " . $estado;
+        }
+
+        if ((isset($_GET["precioMin"]) && isset($_GET["precioMax"])) && (!empty($_GET["precioMin"]) && !empty($_GET["precioMax"]))) {
+            $precioMin = $_GET["precioMin"];
+            $precioMax = $_GET["precioMax"];
+
+            $sql .= " AND  o.total_price >= $precioMin AND o.total_price <= $precioMax ";
+        } elseif ((isset($_GET["precioMin"])) && (!empty($_GET["precioMin"]))) {
+            $precioMin = $_GET["precioMin"];
+            $sql .= " AND  o.total_price >= $precioMin ";
+        } elseif ((isset($_GET["precioMax"])) && (!empty($_GET["precioMax"]))) {
+            $precioMax = $_GET["precioMax"];
+            $sql .= " AND  o.total_price <= $precioMax ";
         }
 
         $sql .= ";";
