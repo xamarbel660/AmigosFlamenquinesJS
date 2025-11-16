@@ -105,7 +105,7 @@ function registrarEventos() {
 //Mostrar formularios tras la interacción con el elemento del menú
 async function mostrarFormularios(oEvento) {
   let opcionMenu = oEvento.target.id; // Opción de menú pulsada (su id)
-  actualizarDesplegables();
+  actualizarDesplegablesCategoria();
   ocultarFormularios(); //Ocultamos los formularios antes de revelar uno
 
   switch (opcionMenu) {
@@ -204,10 +204,7 @@ function ocultarFormularios() {
   document.querySelector("#listados").innerHTML = "";
 }
 
-//Actualizar desplegables
-function actualizarDesplegables() {
-  actualizarDesplegablesCategoria();
-}
+
 
 async function actualizarDesplegablesCategoria() {
   let optCategorias = await oEmpresa.opcionesCategoria();
@@ -215,6 +212,7 @@ async function actualizarDesplegablesCategoria() {
   frmEditarCliente.lstCategorias.innerHTML = optCategorias;
   frmListadoParametrizadoClientes.lstCategorias.innerHTML = "<option value='-1' selected>Elige una categoria</option>"+ optCategorias;
 }
+
 
 //Llamar modales
 function llamarModalCorrecto(titulo) {
