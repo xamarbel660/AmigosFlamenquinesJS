@@ -98,15 +98,25 @@ function registrarEventos() {
 
 
     // Botones formularios Pedidos
+    // Boton para procesar el alta de un pedido
     document
         .querySelector("#btnAceptarAltaPedido")
         .addEventListener("click", procesarAltaPedido);
+    // Boton para procesar la modificación de un pedido
+    document
+        .querySelector("#btnAceptarModificarPedido")
+        .addEventListener("click", procesarModificarPedido);
     document
         .querySelector("#btnAceptarBuscarPedidos")
         .addEventListener("click", procesarBuscarPedido);
+    // Boton para añadir platos a un pedido nuevo
     document
         .querySelector("#btnAñadirPlatoAltaPedido")
-        .addEventListener("click", procesarAñadirPlatoPedido);
+        .addEventListener("click", procesarAñadirPlatoAltaPedido);
+    // Boton para añadir platos a un pedido ha modificar
+    document
+        .querySelector("#btnAñadirPlatoModificarPedido")
+        .addEventListener("click", procesarAñadirPlatoModificarPedido);
     document
         .querySelector("#btnAceptarListadoPedidosParametrizado")
         .addEventListener("click", procesarListadoPedidosParametrizado);
@@ -695,8 +705,7 @@ async function procesarAltaPedido() {
 
     let precio = 0;
     for (let plato of platosSeleccionadosData) {
-        console.log(plato.idPlato)
-        precio += parseInt(plato.precio);
+        precio += parseFloat(plato.precio);
     }
 
     // Validar datos del formulario
@@ -751,8 +760,8 @@ function validarAltaPedido() {
     return valido;
 }
 
-// Proceso para añadir platos a pedidos
-async function procesarAñadirPlatoPedido() {
+// Proceso para añadir platos a pedidos en proceso de alta
+async function procesarAñadirPlatoAltaPedido() {
     let idPlato = frmAltaPedido.lstPlatosAltaPedido.value;
     let notaPlato = frmAltaPedido.notaPlatoAltaPedido.value.trim();
     let cantidadPlatos = frmAltaPedido.cantidadPlatosAltaPedido.value;
@@ -775,6 +784,87 @@ async function procesarAñadirPlatoPedido() {
     frmAltaPedido.lstPlatosSelectAltaPedido.innerHTML += platoSelec;
 }
 
+// Proceso para añadir platos a pedidos en proceso de modificacion
+async function procesarAñadirPlatoModificarPedido() {
+    let idPlato = frmModificarPedido.lstPlatosModificarPedido.value;
+    let notaPlato = frmModificarPedido.notaPlatoModificarPedido.value.trim();
+    let cantidadPlatos = frmModificarPedido.cantidadPlatosModificarPedido.value;
+
+    let respuesta = await oEmpresa.getPlatos(idPlato);
+    let platoSelec = "";
+    if (notaPlato === "") {
+        platoSelec = "<option value='" + respuesta.datos[0].id_plate + "'>" + cantidadPlatos + " " + respuesta.datos[0].name + "</option>";
+    } else {
+        platoSelec = "<option value='" + respuesta.datos[0].id_plate + "'>" + cantidadPlatos + " " + respuesta.datos[0].name + " (" + notaPlato + ")</option>";
+    }
+
+    platosSeleccionadosModificarData.push({
+        idPlato: idPlato,
+        cantidad: cantidadPlatos,
+        nota: notaPlato,
+        precio: respuesta.datos[0].price
+    });
+
+    frmModificarPedido.lstPlatosSelectModificarPedido.innerHTML += platoSelec;
+}
+
+// Funcion para procesar la modificacion del pedido y cambiarlo en la base de datos
+async function procesarModificarPedido() {
+    // Recuperar datos del formulario frmAltaComponente
+    let idPedido = frmModificarPedido.inpHiddenModificarPedido.value;
+    let id_Cliente = frmModificarPedido.lstClienteModificarPedido.value;
+    let fechaPedido = formatDateBD(frmModificarPedido.inpFechaModificarPedido.value);
+    let comentarioPedido = frmModificarPedido.textAreaComentarioModificarPedido.value;
+    let proceso = 0;
+    if (frmModificarPedido.finalizadoModificar.checked) {
+        proceso = 1
+    }
+
+    let precio = 0;
+    for (let plato of platosSeleccionadosModificarData) {
+        precio += parseFloat(plato.precio);
+    }
+    precio += parseFloat(precioTotalPlatosSelect);
+
+    // constructor(id_client_order, client_order_date, total_price, is_completed, comment, id_client)
+    let respuesta = await oEmpresa.modificarPedido(
+        new Pedido(idPedido, fechaPedido, precio, proceso, comentarioPedido, id_Cliente), platosSeleccionadosModificarData
+    );
+
+    if (respuesta.ok) {
+        llamarModalCorrecto(respuesta.mensaje);
+        // Si NO hay error
+        //Resetear formulario
+        frmModificarPedido.reset();
+        platosSeleccionadosModificarData = [];
+        document.querySelector("#lstPlatosSelectModificarPedido").innerHTML = "";
+        // Ocultar el formulario
+        frmModificarPedido.classList.add("d-none");
+    } else {
+        llamarModalError(respuesta.mensaje);
+    }
+}
+
+// Funcion que añade los platos del pedidio que se recibe para el proceso de modificación
+let precioTotalPlatosSelect = 0;
+async function añadirPlatosSeleccionadosModificarPedido(id_client_order) {
+    let respuesta = await oEmpresa.getPlatosSeleccionadosDePedido(id_client_order);
+    let options = "";
+
+    precioTotalPlatosSelect = 0;
+    for (let plato of respuesta.datos) {
+        precioTotalPlatosSelect += parseFloat(plato.price) * parseInt(plato.quantity);
+        if (plato.notes == "") {
+            options += "<option value='" + plato.id_plate + "' >" + plato.quantity + " " + plato.name + "</option>";
+        } else {
+            options += "<option value='" + plato.id_plate + "' >" + plato.quantity + " " + plato.name + " (" + plato.notes + ")</option>";
+        }
+    }
+    // Agrego los options generados a partir del contenido de la BD en todos los desplegables
+    frmModificarPedido.lstPlatosSelectModificarPedido.innerHTML = options;
+}
+
+// Funcion para identificar que boton se selecciona en el listado
 async function procesarBotonEditarBorrarPedido(oEvento) {
     let boton = null;
 
@@ -795,18 +885,18 @@ async function procesarBotonEditarBorrarPedido(oEvento) {
             frmModificarPedido.classList.remove("d-none");
             let pedido = JSON.parse(boton.dataset.pedido);
 
-            frmModificarPedido.textAreaComentarioModificarPedido.value =
-                pedido.comment;
+            frmModificarPedido.textAreaComentarioModificarPedido.value = pedido.comment;
             if (pedido.is_completed == 1) {
-                document.getElementById("finalizado").checked = true;
+                document.getElementById("finalizadoModificar").checked = true;
             } else {
-                document.getElementById("en_preparacion").checked = true;
+                document.getElementById("enPreparacionModificar").checked = true;
             }
+            frmModificarPedido.inpFechaModificarPedido.value = pedido.client_order_date;
+            frmModificarPedido.inpHiddenModificarPedido.value = pedido.id_client_order;
 
-            // frmModificarPedido.txtModNombre.value = componente.nombre;
-            // frmModificarPedido.txtModDescripcion.value = componente.descripcion;
-            // frmModificarPedido.txtModPrecio.value = componente.precio;
             desplegableClientes(pedido.id_client);
+            desplegablePlatos();
+            añadirPlatosSeleccionadosModificarPedido(pedido.id_client_order);
         } else if (boton.classList.contains("btn-danger")) {
             // Botón borrar
             let pedido = JSON.parse(boton.dataset.pedido);
@@ -835,6 +925,17 @@ function formatDate(dateTimeString) {
     let parts = datePart.split("-");
     if (parts.length !== 3) return dateTimeString;
     return parts[2] + "/" + parts[1] + "/" + parts[0];
+}
+
+// Funcion para dar formato a la fecha que se obtiene del formulario de modificacion para añadir a la base de datos
+function formatDateBD(dateTimeString) {
+if (!dateTimeString) return "";
+
+    // 1. Reemplaza la 'T' por un espacio
+    let fechaParaMySQL = dateTimeString.replace("T", " ");
+
+    // 2. ¡Y ya está!
+    return fechaParaMySQL;
 }
 
 //Funcion para obtener la fecha y hora actual con el formato correcto
@@ -1062,9 +1163,11 @@ async function desplegablePlatos(idPlatoSeleccionado) {
     }
     // Agrego los options generados a partir del contenido de la BD en todos los desplegables
     frmAltaPedido.lstPlatosAltaPedido.innerHTML = options;
+    frmModificarPedido.lstPlatosModificarPedido.innerHTML = options;
     // Me servira mas adelante si hago modificacion de pedidos
     // frmModificarComponente.lstModTipo.innerHTML = options;
     // frmAltaComponente.lstAltaTipo.innerHTML = options;
 }
 // Variabler para alamcenar los platos seleccionados
 let platosSeleccionadosData = [];
+let platosSeleccionadosModificarData = [];

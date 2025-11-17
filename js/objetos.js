@@ -302,7 +302,7 @@ class Empresa {
 
     //Cliente
 
-    async listadoParametrizadoClientes(cliParam){
+    async listadoParametrizadoClientes(cliParam) {
         let datos = new FormData();
         datos.append("cliente", JSON.stringify(cliParam.toJSON()));
         let respuesta = await peticionGET("proceso_listado_parametrizado_clientes.php", datos);
@@ -310,7 +310,7 @@ class Empresa {
         return respuesta;
     }
 
-    async editarCliente(clienteCambios){
+    async editarCliente(clienteCambios) {
         let datos = new FormData();
         datos.append("cliente", JSON.stringify(clienteCambios.toJSON()));
         let respuesta = await peticionPOST("proceso_editar_cliente.php", datos);
@@ -378,13 +378,24 @@ class Empresa {
 
 
     //Pedidos
-    async altaPedido(oPedido,platosSeleccionadosData) {
+    async altaPedido(oPedido, platosSeleccionadosData) {
         let datos = new FormData();
 
         datos.append("pedido", JSON.stringify(oPedido));
         datos.append("platosDelPedido", JSON.stringify(platosSeleccionadosData));
 
         let respuesta = await peticionPOST("proceso_alta_pedido.php", datos);
+
+        return respuesta;
+    }
+
+    async modificarPedido(oPedido, platosSeleccionadosModificarData) {
+        let datos = new FormData();
+
+        datos.append("pedido", JSON.stringify(oPedido));
+        datos.append("platosDelPedido", JSON.stringify(platosSeleccionadosModificarData));
+
+        let respuesta = await peticionPOST("proceso_editar_pedido.php", datos);
 
         return respuesta;
     }
@@ -445,6 +456,15 @@ class Empresa {
         }
 
         let respuesta = await peticionGET("get_pedidos.php", datos);
+        return respuesta;
+    }
+
+    async getPlatosSeleccionadosDePedido(id_client_order) {
+        let datos = new FormData();
+
+        datos.append("idPedido", id_client_order)
+
+        let respuesta = await peticionGET("get_platos_select_pedido.php", datos);
         return respuesta;
     }
 }

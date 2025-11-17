@@ -11,8 +11,9 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <!-- Enlaces de slim-select -->
-	<script src="https://unpkg.com/slim-select@latest/dist/slimselect.js"></script>
-    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
+    <script src="https://unpkg.com/slim-select@latest/dist/slimselect.js"></script>
+    <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet">
+    </link>
     <!-- Links de los fonts de google -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -424,8 +425,7 @@
         </form>
 
         <!-- Editar cliente -->
-        <form class="form-horizontal d-none row" name="frmEditarCliente"
-            id="frmEditarCliente">
+        <form class="form-horizontal d-none row" name="frmEditarCliente" id="frmEditarCliente">
             <fieldset>
                 <!-- Form Name -->
                 <legend>Editar cliente ID:<span id="idClienteEditar"></span></legend>
@@ -524,7 +524,7 @@
                             cliente</label>
                         <select class="form-select col-7 col-md-5" name="lstCategorias" id="lstCategorias"
                             aria-label="Default select example">
-                            
+
                         </select>
                     </div>
 
@@ -546,8 +546,8 @@
                 <div class="form-group">
                     <label class="col-xs-4 control-label" for="btnAceptarListadoParametrizadoClientes"></label>
                     <div class="col-xs-4">
-                        <input type="button" id="btnAceptarListadoParametrizadoClientes" name="btnAceptarListadoParametrizadoClientes"
-                            class="btn bg-secondary" value="Aceptar" />
+                        <input type="button" id="btnAceptarListadoParametrizadoClientes"
+                            name="btnAceptarListadoParametrizadoClientes" class="btn bg-secondary" value="Aceptar" />
                     </div>
                 </div>
             </fieldset>
@@ -581,8 +581,8 @@
                     <label class="col-xs-4 control-label" for="textAreaAltaPedido">Comentario del
                         pedido:</label>
                     <div class="col-xs-4">
-                        <textarea name="textAreaAltaPedido" id="textAreaAltaPedido"
-                            placeholder="Comentario de pedido" cols="60"></textarea>
+                        <textarea name="textAreaAltaPedido" id="textAreaAltaPedido" placeholder="Comentario de pedido"
+                            cols="60"></textarea>
                     </div>
                 </div>
 
@@ -655,7 +655,14 @@
                 </div>
 
                 <!-- Fecha Reserva -->
-                <!-- Se almacena en js -->
+                <!-- Fecha -->
+                <div class="form-group">
+                    <label class="col-xs-4 control-label" for="inpFechaModificarPedido">Fecha</label>
+                    <div class="col-xs-4">
+                        <input value="" id="inpFechaModificarPedido" name="inpFechaModificarPedido"
+                            class="form-control input-md" type="datetime-local">
+                    </div>
+                </div>
 
                 <!-- Comentario Pedido -->
                 <div class="row mb-3">
@@ -670,13 +677,13 @@
                 <!-- Estado -->
                 <label class="col-xs-4 control-label" for="txtDescripcion">Estado del pedido</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="estado" id="finalizado" value="1">
+                    <input class="form-check-input" type="radio" name="estado" id="finalizadoModificar" value="1">
                     <label class="form-check-label" for="finalizado">
                         Finalizado
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="estado" id="en_preparacion" value="0">
+                    <input class="form-check-input" type="radio" name="estado" id="enPreparacionModificar" value="0">
                     <label class="form-check-label" for="en_preparacion">
                         En preparación
                     </label>
@@ -684,19 +691,19 @@
 
                 <!-- Lista Platos -->
                 <div class="row mb-3">
-                    <label class="col-12 control-label" for="lstPlatosAltaPedido">Platos:</label>
+                    <label class="col-12 control-label" for="lstPlatosModificarPedido">Platos:</label>
                     <div class="col-12 input-group mb-3">
                         <!-- Lista de platos -->
-                        <select class="form-select col-7 col-md-5" name="lstPlatosAltaPedido" id="lstPlatosAltaPedido"
-                            aria-label="Default select example">
+                        <select class="form-select col-7 col-md-5" name="lstPlatosModificarPedido"
+                            id="lstPlatosModificarPedido" aria-label="Default select example">
 
                         </select>
                         <!-- Cantidad de platos -->
-                        <input class="col-2 border-end-0" type="number" name="cantidadPlatosAltaPedido"
-                            id="cantidadPlatosAltaPedido" min="1" max="20" value="1">
+                        <input class="col-2 border-end-0" type="number" name="cantidadPlatosModificarPedido"
+                            id="cantidadPlatosModificarPedido" min="1" max="20" value="1">
                         <!-- Boton añadir plato -->
-                        <button class="btn bg-secondary rounded-end-2 col-2" type="button" id="btnAñadirPlatoAltaPedido"
-                            name="btnAñadirPlatoAltaPedido">Agregar</button>
+                        <button class="btn bg-secondary rounded-end-2 col-2" type="button"
+                            id="btnAñadirPlatoModificarPedido" name="btnAñadirPlatoModificarPedido">Agregar</button>
                         <!-- Label para poder que ocupe el espacio necesario para que quede bien -->
                         <div class="col-1 col-md-3">
                             <label for=""></label>
@@ -705,28 +712,31 @@
 
                     <!-- Nota del plato -->
                     <div class="col-12 input-group mb-3">
-                        <label class="col-12 control-label" for="notaPlatoAltaPedido">Nota </label>
-                        <textarea placeholder="Sin mucha sal" id="notaPlatoAltaPedido" cols="40"></textarea>
+                        <label class="col-12 control-label" for="notaPlatoModificarPedido">Nota </label>
+                        <textarea placeholder="Sin mucha sal" id="notaPlatoModificarPedido" cols="40"></textarea>
                     </div>
                 </div>
-
+                <!-- Fin Lista Platos -->
+                
                 <!-- Lista Platos Selecionadas-->
                 <div class="row mb-3">
-                    <label class="col-xs-4 control-label" for="lstPlatosSelectAltaPedido">Platos
+                    <label class="col-xs-4 control-label" for="lstPlatosSelectModificarPedido">Platos
                         Selecionados:</label>
                     <div class="col-xs-4">
-                        <select name="lstPlatosSelectAltaPedido" id="lstPlatosSelectAltaPedido" class="form-select"
-                            multiple aria-label="Default select example">
+                        <select name="lstPlatosSelectModificarPedido" id="lstPlatosSelectModificarPedido"
+                            class="form-select" multiple aria-label="Default select example">
 
                         </select>
                     </div>
                 </div>
 
-                <!-- Boton Aceptar -->
+                <input type="hidden" name="inpHiddenModificarPedido" id="inpHiddenModificarPedido" value="">
+
+                <!-- Boton Aceptar Modificar Pedido -->
                 <div class="form-group">
-                    <label class="col-xs-4 control-label" for="btnAceptarAltaPedido"></label>
+                    <label class="col-xs-4 control-label" for="btnAceptarModificarPedido"></label>
                     <div class="col-xs-4">
-                        <input type="button" id="btnAceptarAltaPedido" name="btnAceptarAltaPedido"
+                        <input type="button" id="btnAceptarModificarPedido" name="btnAceptarModificarPedido"
                             class="btn btn-primary" value="Aceptar" />
                     </div>
                 </div>
@@ -831,15 +841,15 @@
     <script type="text/javascript" src="js/objetos.js"></script>
     <script type="text/javascript" src="js/codigo.js"></script>
     <script>
-      new SlimSelect({
-        select: '#selClient'
-      })
-      new SlimSelect({
-        select: '#id_client'
-      })
-      new SlimSelect({
-        select: '#sel_id_client'
-      })
+        new SlimSelect({
+            select: '#selClient'
+        })
+        new SlimSelect({
+            select: '#id_client'
+        })
+        new SlimSelect({
+            select: '#sel_id_client'
+        })
     </script>
 </body>
 
