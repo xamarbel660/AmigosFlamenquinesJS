@@ -1,10 +1,10 @@
-# 🍽️ Proyecto AmigosFlamenquinesPHP 🍽️
+# 🍽️ Proyecto AmigosFlamenquinesJS 🍽️
 
 ## 📍 Enlaces 📍
 
-- **[Enlace del Repositorio de GitHub 🔗](https://github.com/xamarbel660/AmigosFlamenquinesPHP)**
+- **[Enlace del Repositorio de GitHub 🔗](https://github.com/xamarbel660/AmigosFlamenquinesJS)**
 
-- **[Enlace al Alojamiento Web 🌐](https://amigosflamenquines.infinityfreeapp.com/index.php)**
+- **[Enlace al Alojamiento Web 🌐]()**
 
 ## 💾 Datos para la conexión a la base de datos 💾
 
@@ -14,12 +14,12 @@
 
 ## Datos del hosting
 
-- **Dominio** amigosflamenquines.infinityfreeapp.com
-- **Usuario:**  if0_40398718
-- **Contraseña** 5cVHaFKRNcAgx
-- **Hostname FTP** ftpupload.net
-- **Hostname DB** sql100.infinityfree.com
-- **Nombre DB** if0_40398718_amigosFlamenquines
+- **Dominio** 
+- **Usuario:**  
+- **Contraseña** 
+- **Hostname FTP** 
+- **Hostname DB** 
+- **Nombre DB** 
 
 ## 👥 Integrantes 👥
 
