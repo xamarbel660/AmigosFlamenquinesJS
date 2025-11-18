@@ -203,9 +203,12 @@ async function mostrarFormularios(oEvento) {
 function ocultarFormularios() {
     //Ocultar formularios reservas
     frmAltaReserva.classList.add("d-none");
+    frmAltaReserva.reset()
     frmBuscarReserva.classList.add("d-none");
+    frmBuscarReserva.reset()
     let frmEditarReserva = document.getElementById("frmEditarReserva");
     frmEditarReserva.classList.add("d-none");
+    frmEditarReserva.reset()
 
     //Ocultar formularios clientes
     frmAltaCliente.classList.add("d-none");
@@ -332,9 +335,9 @@ async function mostrarListadoReservas(parametros = []) {
         form.addEventListener("submit", (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
-            const params = Object.fromEntries(formData.entries());
+            const paramsBorrar = Object.fromEntries(formData.entries());
 
-            procesarBorrarReserva(params);
+            procesarBorrarReserva(paramsBorrar, parametros);
         });
     });
 
@@ -398,15 +401,17 @@ async function procesarAltaReserva(parametros) {
     let respuesta = await oEmpresa.altaReserva(reserva);
 
     llamarModalCorrecto(respuesta.mensaje)
+    ocultarFormularios()
     return respuesta;
 }
 
-async function procesarBorrarReserva(parametros) {
+async function procesarBorrarReserva(parametros, busquedaParams = []) {
     let idReserva = parseInt(parametros["id_reservation"]);
     let respuesta = await oEmpresa.borrarReserva(idReserva);
 
     if(respuesta.ok) {
         llamarModalCorrecto(respuesta.mensaje)
+        mostrarListadoReservas(busquedaParams)
     } else {
         llamarModalError(respuesta.mensaje)
     }
@@ -424,6 +429,7 @@ async function procesarEditarReserva(parametros) {
 
     if(respuesta.ok) {
         llamarModalCorrecto(respuesta.mensaje)
+        ocultarFormularios()
     } else {
         llamarModalError(respuesta.mensaje)
     }
