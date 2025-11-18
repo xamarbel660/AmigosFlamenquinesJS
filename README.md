@@ -4,7 +4,7 @@
 
 - **[Enlace del Repositorio de GitHub 🔗](https://github.com/xamarbel660/AmigosFlamenquinesJS)**
 
-- **[Enlace al Alojamiento Web 🌐]()**
+- **[Enlace al Alojamiento Web 🌐](https://amigosflamenquines-js.infinityfree.me)**
 
 ## 💾 Datos para la conexión a la base de datos 💾
 
@@ -14,12 +14,12 @@
 
 ## Datos del hosting
 
-- **Dominio** 
-- **Usuario:**  
-- **Contraseña** 
-- **Hostname FTP** 
-- **Hostname DB** 
-- **Nombre DB** 
+- **Dominio** amigosflamenquines-js.infinityfreeapp.com
+- **Usuario:**  if0_40446771
+- **Contraseña** NoiTBH4Giqc4J
+- **Hostname FTP** ftpupload.net
+- **Hostname DB** sql100.infinityfree.com
+- **Nombre DB** if0_40446771_amigosflamenquines
 
 ## 👥 Integrantes 👥
 

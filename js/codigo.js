@@ -332,12 +332,15 @@ async function mostrarListadoReservas(parametros = []) {
     document.querySelector("#listados").innerHTML = mensaje;
 
     document.querySelectorAll(".frmBorrarReserva").forEach((form) => {
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
             const paramsBorrar = Object.fromEntries(formData.entries());
-
-            procesarBorrarReserva(paramsBorrar, parametros);
+            
+            let res = await procesarBorrarReserva(paramsBorrar);
+            if(res.ok) {
+                form.parentNode.parentNode.remove()
+            }
         });
     });
 
@@ -405,13 +408,12 @@ async function procesarAltaReserva(parametros) {
     return respuesta;
 }
 
-async function procesarBorrarReserva(parametros, busquedaParams = []) {
+async function procesarBorrarReserva(parametros) {
     let idReserva = parseInt(parametros["id_reservation"]);
     let respuesta = await oEmpresa.borrarReserva(idReserva);
 
     if(respuesta.ok) {
         llamarModalCorrecto(respuesta.mensaje)
-        mostrarListadoReservas(busquedaParams)
     } else {
         llamarModalError(respuesta.mensaje)
     }
