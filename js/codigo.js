@@ -389,20 +389,14 @@ async function procesarAltaReserva(parametros) {
     let errores = validarParametrosReserva(parametros);
 
     if (errores.length > 0) {
-        let mensajeError = `
-        <br>
-        <div class="alert alert-danger">
-            <ul>${errores.map((e) => `<li>${e}</li>`).join("")}</ul>
-        </div>`;
-        document.querySelector("#listados").innerHTML = mensajeError;
+        llamarModalError(errores.map((e) => `<li>${e}</li>`).join(""))
         return { ok: false, errores };
     }
 
     let reserva = new Reserva({ id_reservation: null, ...parametros });
     let respuesta = await oEmpresa.altaReserva(reserva);
 
-    let mensaje = `<h2 class='text-center'>${respuesta.mensaje}</h2>`;
-    document.querySelector("#listados").innerHTML = mensaje;
+    llamarModalCorrecto(respuesta.mensaje)
     return respuesta;
 }
 
@@ -410,8 +404,12 @@ async function procesarBorrarReserva(parametros) {
     let idReserva = parseInt(parametros["id_reservation"]);
     let respuesta = await oEmpresa.borrarReserva(idReserva);
 
-    let mensaje = `<h2 class='text-center'>${respuesta.mensaje}</h2>`;
-    document.querySelector("#listados").innerHTML = mensaje;
+    if(respuesta.ok) {
+        llamarModalCorrecto(respuesta.mensaje)
+    } else {
+        llamarModalError(respuesta.mensaje)
+    }
+
     return respuesta;
 }
 
@@ -423,8 +421,12 @@ async function procesarEditarReserva(parametros) {
     });
     let respuesta = await oEmpresa.editarReserva(reserva);
 
-    let mensaje = `<h2 class='text-center'>${respuesta.mensaje}</h2>`;
-    document.querySelector("#listados").innerHTML = mensaje;
+    if(respuesta.ok) {
+        llamarModalCorrecto(respuesta.mensaje)
+    } else {
+        llamarModalError(respuesta.mensaje)
+    }
+
     return respuesta;
 }
 
