@@ -608,11 +608,18 @@ async function procesarBorrarEditarCliente(oEvento) {
         }
 
         let respuesta = null;
-
+        
         if (boton.id == "btnBorrarCliente") {
+            
             let idCliente = boton.dataset.cliente;
             respuesta = await oEmpresa.borrarCliente(idCliente);
-            procesarBuscarClienteId();
+            if(document.querySelector("#idClienteBuscar").value == ""){
+                procesarBuscarClienteId();
+    
+            }else{
+                document.querySelector("#idClienteBuscar").value = "";
+                document.querySelector("#listados").innerHTML = "";
+            }
             llamarModalCorrecto(respuesta.mensaje);
         } else if (boton.id == "btnEditarCliente") {
             ocultarFormularios();
