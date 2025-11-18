@@ -211,39 +211,6 @@ class Pedido {
 }
 
 class Empresa {
-    // async altaTipo(oTipo) {
-    //     let datos = new FormData();
-
-    //     datos.append("tipo", oTipo.tipo);
-    //     datos.append("descripcion", oTipo.descripcion);
-
-    //     let respuesta = await peticionPOST("alta_tipo.php", datos);
-
-    //     return respuesta;
-    // }
-
-    // async listadoTipoComponentes() {
-    //     let listado = "";
-
-    //     let respuesta = await peticionGET("get_tipos.php", new FormData());
-
-    //     if (!respuesta.ok) {
-    //         listado = respuesta.mensaje;
-    //     } else {
-    //         listado = "<table class='table table-striped'>";
-    //         listado += "<thead><tr><th>IDTIPO</th><th>TIPO</th><th>DESCRIPCIÓN</th></tr></thead>";
-    //         listado += "<tbody>";
-
-    //         for (let tipo of respuesta.datos) {
-    //             listado += "<tr><td>" + tipo.idtipo + "</td>";
-    //             listado += "<td>" + tipo.tipo + "</td>";
-    //             listado += "<td>" + tipo.descripcion + "</td></tr>";
-    //         }
-    //         listado += "</tbody></table>";
-    //     }
-
-    //     return listado;
-    // }
 
     //Recoger informacion para desplegables
     async opcionesCategoria() {
@@ -382,6 +349,7 @@ class Empresa {
         let datos = new FormData();
 
         datos.append("pedido", JSON.stringify(oPedido));
+        // Pasamos los platos para tambien meterlos en la tabla N:M
         datos.append("platosDelPedido", JSON.stringify(platosSeleccionadosData));
 
         let respuesta = await peticionPOST("proceso_alta_pedido.php", datos);

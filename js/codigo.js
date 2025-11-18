@@ -106,20 +106,22 @@ function registrarEventos() {
     document
         .querySelector("#btnAceptarModificarPedido")
         .addEventListener("click", procesarModificarPedido);
+    // Boton para aceptar la busqueda de un pedido por el cliente seleccionado
     document
         .querySelector("#btnAceptarBuscarPedidos")
         .addEventListener("click", procesarBuscarPedido);
-    // Boton para añadir platos a un pedido nuevo
-    document
-        .querySelector("#btnAñadirPlatoAltaPedido")
-        .addEventListener("click", procesarAñadirPlatoAltaPedido);
-    // Boton para añadir platos a un pedido ha modificar
-    document
-        .querySelector("#btnAñadirPlatoModificarPedido")
-        .addEventListener("click", procesarAñadirPlatoModificarPedido);
+    // Boton para aceptar la busqueda parametrizada
     document
         .querySelector("#btnAceptarListadoPedidosParametrizado")
         .addEventListener("click", procesarListadoPedidosParametrizado);
+    // Boton para añadir platos a un pedido que esta en alta
+    document
+        .querySelector("#btnAñadirPlatoAltaPedido")
+        .addEventListener("click", procesarAñadirPlatoAltaPedido);
+    // Boton para añadir platos a un pedido que se esta modificando
+    document
+        .querySelector("#btnAñadirPlatoModificarPedido")
+        .addEventListener("click", procesarAñadirPlatoModificarPedido);
 }
 
 //Mostrar formularios tras la interacción con el elemento del menú
@@ -183,10 +185,8 @@ async function mostrarFormularios(oEvento) {
         //Casos Pedidos
         case "mnuAltaPedido":
             frmAltaPedido.classList.remove("d-none");
-            //ponemos undefined para que no seleccione nada en concreto
-            //porque undefined es como no pasar nada
-            desplegableClientes(undefined); // Cargar el desplegable de clientes
-            desplegablePlatos(undefined);
+            desplegableClientes(undefined); // Cargar desplegable de clientes
+            desplegablePlatos(undefined);   //Cargar desplegable de platos
             break;
         case "mnuBuscarPedido":
             frmBuscarPedido.classList.remove("d-none")
@@ -220,11 +220,12 @@ function ocultarFormularios() {
     frmListadoParametrizadoClientes.edadCliente.value = "";
     //Ocultar formularios pedidos
     frmAltaPedido.classList.add("d-none");
-    frmBuscarPedido.classList.add("d-none");
     frmModificarPedido.classList.add("d-none");
 
+    frmBuscarPedido.classList.add("d-none");
     frmListadoPedidosParametrizado.classList.add("d-none");
-    platosSeleccionadosData = [];
+    platosSeleccionadosData = [];   //Array donde guardo los platos de un pedido que esta de alta
+    platosSeleccionadosModificarData = [];  //Array donde guardo los platos de un pedido que se esta modificando
     //Ocultar listados
     // Borrado del contenido de capas con resultados
     document.querySelector("#resultadoBusqueda").innerHTML = "";
@@ -700,7 +701,6 @@ async function procesarListadoClientesParametrizado() {
 //Funciones pedidos
 // Proceso para dar de alta un pedido
 async function procesarAltaPedido() {
-    // Recuperar datos del formulario frmAltaComponente
     let id_Cliente = frmAltaPedido.lstClienteAltaPedido.value;
     let fechaPedido = obtenerFechaActual();
     let comentarioPedido = frmAltaPedido.textAreaAltaPedido.value;
@@ -786,30 +786,6 @@ async function procesarAñadirPlatoAltaPedido() {
     frmAltaPedido.lstPlatosSelectAltaPedido.innerHTML += platoSelec;
 }
 
-// Proceso para añadir platos a pedidos en proceso de modificacion
-async function procesarAñadirPlatoModificarPedido() {
-    let idPlato = frmModificarPedido.lstPlatosModificarPedido.value;
-    let notaPlato = frmModificarPedido.notaPlatoModificarPedido.value.trim();
-    let cantidadPlatos = frmModificarPedido.cantidadPlatosModificarPedido.value;
-
-    let respuesta = await oEmpresa.getPlatos(idPlato);
-    let platoSelec = "";
-    if (notaPlato === "") {
-        platoSelec = "<option value='" + respuesta.datos[0].id_plate + "'>" + cantidadPlatos + " " + respuesta.datos[0].name + "</option>";
-    } else {
-        platoSelec = "<option value='" + respuesta.datos[0].id_plate + "'>" + cantidadPlatos + " " + respuesta.datos[0].name + " (" + notaPlato + ")</option>";
-    }
-
-    platosSeleccionadosModificarData.push({
-        idPlato: idPlato,
-        cantidad: cantidadPlatos,
-        nota: notaPlato,
-        precio: respuesta.datos[0].price
-    });
-
-    frmModificarPedido.lstPlatosSelectModificarPedido.innerHTML += platoSelec;
-}
-
 // Funcion para procesar la modificacion del pedido y cambiarlo en la base de datos
 async function procesarModificarPedido() {
     // Recuperar datos del formulario frmAltaComponente
@@ -847,6 +823,30 @@ async function procesarModificarPedido() {
     }
 }
 
+// Proceso para añadir platos a pedidos en proceso de modificacion
+async function procesarAñadirPlatoModificarPedido() {
+    let idPlato = frmModificarPedido.lstPlatosModificarPedido.value;
+    let notaPlato = frmModificarPedido.notaPlatoModificarPedido.value.trim();
+    let cantidadPlatos = frmModificarPedido.cantidadPlatosModificarPedido.value;
+
+    let respuesta = await oEmpresa.getPlatos(idPlato);
+    let platoSelec = "";
+    if (notaPlato === "") {
+        platoSelec = "<option value='" + respuesta.datos[0].id_plate + "'>" + cantidadPlatos + " " + respuesta.datos[0].name + "</option>";
+    } else {
+        platoSelec = "<option value='" + respuesta.datos[0].id_plate + "'>" + cantidadPlatos + " " + respuesta.datos[0].name + " (" + notaPlato + ")</option>";
+    }
+
+    platosSeleccionadosModificarData.push({
+        idPlato: idPlato,
+        cantidad: cantidadPlatos,
+        nota: notaPlato,
+        precio: respuesta.datos[0].price
+    });
+
+    frmModificarPedido.lstPlatosSelectModificarPedido.innerHTML += platoSelec;
+}
+
 // Funcion que añade los platos del pedidio que se recibe para el proceso de modificación
 let precioTotalPlatosSelect = 0;
 async function añadirPlatosSeleccionadosModificarPedido(id_client_order) {
@@ -866,7 +866,7 @@ async function añadirPlatosSeleccionadosModificarPedido(id_client_order) {
     frmModificarPedido.lstPlatosSelectModificarPedido.innerHTML = options;
 }
 
-// Funcion para identificar que boton se selecciona en el listado
+// Funcion para identificar que boton se selecciona en los listados
 async function procesarBotonEditarBorrarPedido(oEvento) {
     let boton = null;
 
@@ -918,8 +918,7 @@ async function procesarBotonEditarBorrarPedido(oEvento) {
     }
 }
 
-// Funcion para dar formato a la fecha que se obtiene de la base de datos
-// Formatea 'YYYY-MM-DD HH:MM:SS' o formatos ISO a 'DD/MM/YYYY'
+// Funcion para dar formato a la fecha que se obtiene de la base de datos, para ponerlo en los litados
 function formatDate(dateTimeString) {
     if (!dateTimeString) return "";
     // Tomar solo la parte de fecha (soporta 'YYYY-MM-DD HH:MM:SS' y 'YYYY-MM-DDTHH:MM:SS')
@@ -931,7 +930,7 @@ function formatDate(dateTimeString) {
 
 // Funcion para dar formato a la fecha que se obtiene del formulario de modificacion para añadir a la base de datos
 function formatDateBD(dateTimeString) {
-if (!dateTimeString) return "";
+    if (!dateTimeString) return "";
 
     // 1. Reemplaza la 'T' por un espacio
     let fechaParaMySQL = dateTimeString.replace("T", " ");
@@ -940,7 +939,7 @@ if (!dateTimeString) return "";
     return fechaParaMySQL;
 }
 
-//Funcion para obtener la fecha y hora actual con el formato correcto
+//Funcion para obtener la fecha y hora actual con el formato correcto, para el alta de un pedido
 function obtenerFechaActual() {
     let fechaActual = new Date().toLocaleString('sv-SE', {
         timeZone: 'Europe/Madrid'
@@ -950,13 +949,14 @@ function obtenerFechaActual() {
     return fechaActual.slice(0, 16);
 }
 
+// Funcion que recoge el cliente que este seleccionado y hace un listado de pedidos de ese cliente
 async function procesarBuscarPedido() {
     // Recuperar idCliente seleccionado
     let idCliente = frmBuscarPedido.lstClientesBuscarPedidos.value;
 
     let respuesta = await oEmpresa.listadoPedidos(idCliente);
 
-    let listado = "<table class='table table-striped' id='listadoPedidosParametrizado'>";
+    let listado = "<table class='table table-striped' id='listadoPedidos'>";
     listado += "<thead><tr><th>Cliente</th><th>FECHA PEDIDO</th><th>COMENTARIO</th><th>ESTADO</th><th>PRECIO TOTAL</th></tr></thead>";
     listado += "<tbody>";
     for (let fila of respuesta.datos) {
@@ -984,7 +984,7 @@ async function procesarBuscarPedido() {
     }
     listado += "</tbody></table>";
 
-    //agregamos el contenido a la capa de listados
+
     ocultarFormularios();
     //Esto es para reiniciar el formulario
     // document.getElementById("frmListadoPedidosParametrizado").reset();
@@ -993,12 +993,12 @@ async function procesarBuscarPedido() {
     document.querySelector("#listados").innerHTML = listado;
     // Agregar manejador de evento para toda la tabla
     document
-        .querySelector("#listadoPedidosParametrizado")
+        .querySelector("#listadoPedidos")
         .addEventListener("click", procesarBotonEditarBorrarPedido);
 }
 
+// Funcion que devuelve todos los pedidos
 async function procesarListadoPedidos() {
-    //Obtener el listado de componentes
     let respuesta = await oEmpresa.listadoPedidos();
 
     let listado = "<table class='table table-striped' id='listadoPedidos'>";
@@ -1038,6 +1038,7 @@ async function procesarListadoPedidos() {
         .addEventListener("click", procesarBotonEditarBorrarPedido);
 }
 
+// Funcion que devuelve un listado con los parametros recibidos por un formulario
 async function procesarListadoPedidosParametrizado() {
     // Recuperar idCliente seleccionado
     let idCliente;
@@ -1170,6 +1171,7 @@ async function desplegablePlatos(idPlatoSeleccionado) {
     // frmModificarComponente.lstModTipo.innerHTML = options;
     // frmAltaComponente.lstAltaTipo.innerHTML = options;
 }
-// Variabler para alamcenar los platos seleccionados
+//Array donde guardo los platos de un pedido que esta de alta
 let platosSeleccionadosData = [];
+//Array donde guardo los platos de un pedido que se esta modificando
 let platosSeleccionadosModificarData = [];
