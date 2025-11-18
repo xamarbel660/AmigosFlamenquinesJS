@@ -1,4 +1,4 @@
-# 🍽️ Proyecto AmigosFlamenquinesPHP 🍽️
+# 🍽️ Proyecto AmigosFlamenquinesJS 🍽️
 
 ## 📍 Enlaces 📍
 
@@ -14,7 +14,7 @@
 
 ## Datos del hosting
 
-- **Dominio** amigosflamenquines.infinityfreeapp.com
+- **Dominio** amigosflamenquines-js.infinityfreeapp.com
 - **Usuario:**  if0_40446771
 - **Contraseña** NoiTBH4Giqc4J
 - **Hostname FTP** ftpupload.net
